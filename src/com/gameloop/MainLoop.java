@@ -3,30 +3,37 @@ package com.gameloop;
 import com.builder.HeroBuilder;
 import com.characters.Hero;
 import com.classes.CharacterClass;
+import com.classes.Mage;
+import com.classes.Rogue;
 import com.classes.Warrior;
 
-import java.util.Scanner;
+import java.util.*;
 
 public class MainLoop implements Runnable {
 
     private Scanner sc;
     private boolean isRunning;
     private Hero hero;
+    private List<CharacterClass> characterClasses;
 
     public MainLoop() {
         sc = new Scanner(System.in);
+
+        //todo: need to simplify classes list creating
+        characterClasses = new ArrayList<>();
+        characterClasses.add(new Warrior());
+        characterClasses.add(new Mage());
+        characterClasses.add(new Rogue());
     }
 
     @Override
     public void run() {
+
         start();
         while (isRunning) {
             createProtagonist();
 
-
-            System.out.println(hero.getName());
-            System.out.println(hero.getCharacterClass().getName());
-            System.out.println(hero.getHealthPoints());
+            
             stop();
         }
     }
@@ -46,20 +53,37 @@ public class MainLoop implements Runnable {
 
     private CharacterClass chooseCharacterClass() {
         System.out.println("Choose a character's class");
-        System.out.println("1. Warrior");
-        String characterClass = sc.nextLine();
+        for (int i = 0; i < characterClasses.size(); i++) {
+            System.out.println(i + ") " + characterClasses.get(i).getName());
+        }
+        String playerInput = sc.nextLine();
 
-        if (characterClass.equals("1") || characterClass.equals("Warrior")){
-            return new Warrior();
+        return getFromList(playerInput);
+    }
+
+    private CharacterClass getFromList(String className){
+
+        if (className.matches("-?\\d+")){
+            for (int i = 0; i < characterClasses.size(); i++) {
+                if (i == Integer.parseInt(className)){
+                    return characterClasses.get(i);
+                }
+            }
+        }else {
+            for (CharacterClass c : characterClasses) {
+                if (className.equals(c.getName())) {
+                    return c;
+                }
+            }
         }
         return null;
     }
 
-    private void start(){
+    private void start() {
         isRunning = true;
     }
 
-    private void stop(){
+    private void stop() {
         isRunning = false;
     }
 }

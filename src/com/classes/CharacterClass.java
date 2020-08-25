@@ -2,6 +2,7 @@ package com.classes;
 
 import com.characters.Character;
 
+
 public abstract class CharacterClass extends Character {
 
     private String name;
@@ -24,4 +25,5 @@ public abstract class CharacterClass extends Character {
     public void setType(Type type) {
         this.type = type;
     }
+
 }
