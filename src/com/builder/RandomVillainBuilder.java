@@ -25,8 +25,8 @@ public class RandomVillainBuilder {
         this.firstNameList = new ArrayList<>();
         this.aliasNameList = new ArrayList<>();
         firstNameList.addAll(Arrays.asList("Five Fingers",
-                "The Knuckles",
-                "The Pillager",
+                "Knuckles",
+                "Pillager",
                 "Eldridge",
                 "Keegan the Whisper",
                 "Lang",

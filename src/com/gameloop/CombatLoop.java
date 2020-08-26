@@ -4,14 +4,14 @@ import com.characters.Hero;
 import com.characters.Villain;
 import com.visualeffects.Printer;
 
-public class FightLoop implements Runnable {
+public class CombatLoop implements Runnable {
 
     private boolean isRunning;
 
     private Hero hero;
     private Villain villain;
 
-    public FightLoop(Hero hero, Villain villain) {
+    public CombatLoop(Hero hero, Villain villain) {
         this.hero = hero;
         this.villain = villain;
     }
@@ -48,7 +48,7 @@ public class FightLoop implements Runnable {
                 hero.setExperiencePoints(exp);
                 System.out.println(hero.getExperiencePoints());
             }else
-                System.out.println("Hero lose");
+                System.out.println("Hero loses");
             stop();
         }
     }

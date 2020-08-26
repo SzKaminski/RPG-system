@@ -15,7 +15,7 @@ public class MainLoop implements Runnable {
     private Hero hero;
     private Villain randomVillain;
     private List<CharacterClass> characterClasses;
-    private FightLoop fightLoop;
+    private CombatLoop combatLoop;
 
     public MainLoop() {
         sc = new Scanner(System.in);
@@ -29,8 +29,8 @@ public class MainLoop implements Runnable {
             createProtagonist();
             pause();
             firstMeet();
-            fightLoop = new FightLoop(hero, randomVillain);
-            fightLoop.run();
+            combatLoop = new CombatLoop(hero, randomVillain);
+            combatLoop.run();
             stop();
         }
     }
