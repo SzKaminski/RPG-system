@@ -2,10 +2,9 @@ package com.gameloop;
 
 import com.builder.HeroBuilder;
 import com.characters.Hero;
-import com.classes.CharacterClass;
-import com.classes.Mage;
-import com.classes.Rogue;
-import com.classes.Warrior;
+import com.characters.Villain;
+import com.classes.*;
+import com.visualeffects.Printer;
 
 import java.util.*;
 
@@ -14,33 +13,59 @@ public class MainLoop implements Runnable {
     private Scanner sc;
     private boolean isRunning;
     private Hero hero;
+    private Villain randomVillain;
     private List<CharacterClass> characterClasses;
+    private FightLoop fightLoop;
 
     public MainLoop() {
         sc = new Scanner(System.in);
-
-        //todo: need to simplify classes list creating
-        characterClasses = new ArrayList<>();
-        characterClasses.add(new Warrior());
-        characterClasses.add(new Mage());
-        characterClasses.add(new Rogue());
+        characterClasses = new ClassesContainer().getCharacterClassList();
     }
 
     @Override
     public void run() {
-
         start();
         while (isRunning) {
             createProtagonist();
-
-            
+            pause();
+            firstMeet();
+            fightLoop = new FightLoop(hero, randomVillain);
+            fightLoop.run();
             stop();
         }
     }
 
+    private void pause() {
+        try {
+            for (int i = 0; i < 3; i++) {
+                System.out.print(".");
+                Thread.sleep(800);
+            }
+            System.out.print("\n");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void firstMeet() {
+        System.out.println();
+        Printer.println(hero.getName() + " the " + hero.getCharacterClass().getName() + " meets an opponent");
+        pause();
+        Villain villain = new Villain();
+        randomVillain = villain.getRandomVillain();
+
+
+        System.out.println(randomVillain.getName() +
+                " " + randomVillain.getCharacterClass().getName() +
+                " " + randomVillain.getLevel());
+
+
+
+    }
+
     private void createProtagonist() {
-        System.out.println("Please create new character.");
-        System.out.println("Enter character's name:");
+        Printer.println("Please create new character.");
+        Printer.println("Enter character's name:");
         String characterName = sc.nextLine();
 
         CharacterClass characterClass = chooseCharacterClass();
@@ -61,15 +86,14 @@ public class MainLoop implements Runnable {
         return getFromList(playerInput);
     }
 
-    private CharacterClass getFromList(String className){
-
-        if (className.matches("-?\\d+")){
+    private CharacterClass getFromList(String className) {
+        if (className.matches("-?\\d+")) {
             for (int i = 0; i < characterClasses.size(); i++) {
-                if (i == Integer.parseInt(className)){
+                if (i == Integer.parseInt(className)) {
                     return characterClasses.get(i);
                 }
             }
-        }else {
+        } else {
             for (CharacterClass c : characterClasses) {
                 if (className.equals(c.getName())) {
                     return c;

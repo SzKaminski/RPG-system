@@ -1,4 +1,7 @@
-package com.classes;
+package com.classes.playable;
+
+import com.classes.CharacterClass;
+import com.classes.Type;
 
 public class Mage extends CharacterClass {
 

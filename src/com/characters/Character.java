@@ -2,6 +2,8 @@ package com.characters;
 
 public abstract class Character {
 
+    private int level;
+
     private int healthPoints;
     private int endurance;
     private int manaPoints;
@@ -11,19 +13,18 @@ public abstract class Character {
     private int dodge;
     private int dexterity;
 
-    public Character(int healthPoints, int endurance, int manaPoints, int intelligence, int meleeAttack, int strenght, int dodge, int dexterity) {
-        this.healthPoints = healthPoints;
-        this.endurance = endurance;
-        this.manaPoints = manaPoints;
-        this.intelligence = intelligence;
-        this.meleeAttack = meleeAttack;
-        this.strenght = strenght;
-        this.dodge = dodge;
-        this.dexterity = dexterity;
-    }
-
     public Character() {
     }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+
 
     public int getHealthPoints() {
         return healthPoints;

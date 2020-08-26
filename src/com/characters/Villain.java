@@ -1,31 +1,14 @@
 package com.characters;
 
+import com.builder.RandomVillainBuilder;
 import com.classes.CharacterClass;
 
-public class Hero extends Character {
+public class Villain extends Character {
 
     private String name;
     private CharacterClass characterClass;
-    private int experiencePoints;
-    private int newLevelPoints;
 
-    public Hero() {
-    }
-
-    public int getExperiencePoints() {
-        return experiencePoints;
-    }
-
-    public void setExperiencePoints(int experiencePoints) {
-        this.experiencePoints = experiencePoints;
-    }
-
-    public int getNewLevelPoints() {
-        return newLevelPoints;
-    }
-
-    public void setNewLevelPoints(int newLevelPoints) {
-        this.newLevelPoints = newLevelPoints;
+    public Villain() {
     }
 
     public String getName() {
@@ -45,7 +28,7 @@ public class Hero extends Character {
         this.setAttributes();
     }
 
-    public void setAttributes(){
+    public void setAttributes() {
         this.setHealthPoints(getCharacterClass().getHealthPoints());
         this.setEndurance(getCharacterClass().getEndurance());
         this.setManaPoints(getCharacterClass().getManaPoints());
@@ -56,4 +39,13 @@ public class Hero extends Character {
         this.setDexterity(getCharacterClass().getDexterity());
     }
 
+    public Villain getRandomVillain() {
+
+        return new RandomVillainBuilder()
+                .withName()
+                .withCharacterClass()
+                .withRandomLvl()
+                .build();
+
+    }
 }
