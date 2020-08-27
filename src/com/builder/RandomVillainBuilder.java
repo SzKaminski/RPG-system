@@ -27,10 +27,9 @@ public class RandomVillainBuilder {
         this.firstNameList = new ArrayList<>();
         this.aliasNameList = new ArrayList<>();
         firstNameList.addAll(Arrays.asList("Five Fingers",
-                "Knuckles",
-                "Pillager",
+                "Emmerson",
                 "Eldridge",
-                "Keegan the Whisper",
+                "Bret",
                 "Lang",
                 "Radford",
                 "Rowan",
@@ -38,14 +37,16 @@ public class RandomVillainBuilder {
                 "Wynton" ));
 
         aliasNameList.addAll(Arrays.asList("Skyler",
-                "Bret",
-                "Emmerson",
+                "Knuckles",
+                "Whisperless",
+                "Pillager",
                 "Brute",
                 "Crackpot",
                 "Prowling",
                 "Bullseye",
                 "Sweet",
-                "Phantom"
+                "Phantom",
+                "Keegan"
         ));
         villain.setName(aliasNameList.get(r.nextInt(aliasNameList.size())) +
                 " " + firstNameList.get(r.nextInt(firstNameList.size())));
@@ -58,7 +59,7 @@ public class RandomVillainBuilder {
     }
 
     public RandomVillainBuilder withRandomLvl() {
-        villain.setLevel(r.nextInt(5) + 1);
+        villain.setLevel(r.nextInt(2) + 1);
         return this;
     }
 

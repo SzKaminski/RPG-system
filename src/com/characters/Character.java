@@ -2,7 +2,7 @@ package com.characters;
 
 public abstract class Character {
 
-    private int level;
+    private int level = 1;
 
     private int healthPoints;
     private int endurance;
@@ -23,8 +23,6 @@ public abstract class Character {
     public void setLevel(int level) {
         this.level = level;
     }
-
-
 
     public int getHealthPoints() {
         return healthPoints;

@@ -7,9 +7,19 @@ public class Hero extends Character {
     private String name;
     private CharacterClass characterClass;
     private int experiencePoints;
-    private int newLevelPoints;
+    private int newLevelPoints = 200;
 
     public Hero() {
+    }
+
+    public void checkIfNewLevel() {
+        System.out.println("Next lvl: " + experiencePoints + "/" + newLevelPoints);
+
+        if (experiencePoints >= newLevelPoints) {
+            int levelUp = getLevel() + 1;
+            System.out.println("You reached new level: " + levelUp);
+            newLevelPoints = newLevelPoints * 3;
+        }
     }
 
     public int getExperiencePoints() {
@@ -45,7 +55,7 @@ public class Hero extends Character {
         this.setAttributes();
     }
 
-    public void setAttributes(){
+    public void setAttributes() {
         this.setHealthPoints(getCharacterClass().getHealthPoints());
         this.setEndurance(getCharacterClass().getEndurance());
         this.setManaPoints(getCharacterClass().getManaPoints());

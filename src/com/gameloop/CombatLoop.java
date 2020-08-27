@@ -32,23 +32,14 @@ public class CombatLoop implements Runnable {
                     + hero.getDodge()
                     + hero.getDexterity();
 
-
-            int villainPower = villain.getHealthPoints()
-                    + villain.getEndurance()
-                    + villain.getManaPoints()
-                    + villain.getIntelligence()
-                    + villain.getMeleeAttack()
-                    + villain.getStrenght()
-                    + villain.getDodge()
-                    + villain.getDexterity();
+            int villainPower = getVillainPower(villain);
             int i = heroPower - villainPower;
-
 
             if (i > 0) {
                 System.out.println("Hero wins");
                 int exp = hero.getExperiencePoints() + getExperienceGained(villain);
                 hero.setExperiencePoints(exp);
-                System.out.println(hero.getExperiencePoints());
+                hero.checkIfNewLevel();
                 mainLoop = new MainLoop();
                 mainLoop.setHero(hero);
                 mainLoop.combatMeet();
@@ -58,8 +49,8 @@ public class CombatLoop implements Runnable {
         }
     }
 
-    private int getExperienceGained(Villain villain) {
-        int experience = villain.getHealthPoints()
+    private int getVillainPower(Villain villain) {
+        return villain.getHealthPoints()
                 + villain.getEndurance()
                 + villain.getManaPoints()
                 + villain.getIntelligence()
@@ -67,6 +58,10 @@ public class CombatLoop implements Runnable {
                 + villain.getStrenght()
                 + villain.getDodge()
                 + villain.getDexterity();
+    }
+
+    private int getExperienceGained(Villain villain) {
+        int experience = getVillainPower(villain);
 
         Printer.println("Experience +" + experience);
 
