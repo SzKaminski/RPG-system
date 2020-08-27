@@ -1,13 +1,18 @@
 package com.characters;
 
 import com.classes.CharacterClass;
+import com.visualeffects.Printer;
+
+import java.util.Scanner;
 
 public class Hero extends Character {
 
     private String name;
     private CharacterClass characterClass;
     private int experiencePoints;
-    private int newLevelPoints = 200;
+    private int newLevelPoints = 50;
+    private Scanner sc;
+    private int increasePoints = 3;
 
     public Hero() {
     }
@@ -19,7 +24,49 @@ public class Hero extends Character {
             int levelUp = getLevel() + 1;
             System.out.println("You reached new level: " + levelUp);
             newLevelPoints = newLevelPoints * 3;
+            increasePoints = 3;
+            getStatisticsIncreaser();
         }
+    }
+
+    public int getStatisticsIncreaser() {
+
+        Scanner sc = new Scanner(System.in);
+        Printer.println("Develop statistics | Points to use: " + increasePoints);
+
+        System.out.println("1) Str:" + getStrenght() + " +1");
+        System.out.println("2) Dex:" + getDexterity() + " +1");
+        System.out.println("3) End:" + getEndurance() + " +1");
+        System.out.println("4) Int:" + getIntelligence() + " +1");
+
+        String s = sc.nextLine();
+        switch (s) {
+            case "1":
+                setStrenght(getStrenght() + 1);
+                increasePoints = increasePoints - 1;
+                break;
+            case "2":
+                setDexterity(getDexterity() + 1);
+                increasePoints = increasePoints - 1;
+                break;
+            case "3":
+                setEndurance(getEndurance() + 1);
+                increasePoints = increasePoints - 1;
+                break;
+            case "4":
+                setIntelligence(getIntelligence() + 1);
+                increasePoints = increasePoints - 1;
+                break;
+            default:
+                System.out.println("Type 1-4");
+                break;
+        }
+
+        if (increasePoints >0){
+            getStatisticsIncreaser();
+        }
+
+        return increasePoints;
     }
 
     public int getExperiencePoints() {

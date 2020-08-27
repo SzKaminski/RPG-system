@@ -56,7 +56,6 @@ public class MainLoop implements Runnable {
                 " " + randomVillain.getCharacterClass().getName() +
                 " " + randomVillain.getLevel());
         chooseAction();
-
     }
 
     private void chooseAction() {
