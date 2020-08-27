@@ -28,9 +28,7 @@ public class MainLoop implements Runnable {
         while (isRunning) {
             createProtagonist();
             pause();
-            firstMeet();
-            combatLoop = new CombatLoop(hero, randomVillain);
-            combatLoop.run();
+            combatMeet();
             stop();
         }
     }
@@ -47,19 +45,34 @@ public class MainLoop implements Runnable {
         }
     }
 
-    private void firstMeet() {
+    public void combatMeet() {
         System.out.println();
         Printer.println(hero.getName() + " the " + hero.getCharacterClass().getName() + " meets an opponent");
         pause();
         Villain villain = new Villain();
         randomVillain = villain.getRandomVillain();
 
-
         System.out.println(randomVillain.getName() +
                 " " + randomVillain.getCharacterClass().getName() +
                 " " + randomVillain.getLevel());
+        chooseAction();
 
+    }
 
+    private void chooseAction() {
+        System.out.println("Choose an action");
+        int i = 0;
+        System.out.println(i+1 + ") Fight!");
+        System.out.println(i+2 + ") Try to avoid");
+        String getPick = sc.nextLine();
+
+        if (getPick.equals("1")){
+            combatLoop = new CombatLoop(hero, randomVillain);
+            stop();
+            combatLoop.run();
+
+        } else
+            combatMeet();
 
     }
 
@@ -83,10 +96,10 @@ public class MainLoop implements Runnable {
         }
         String playerInput = sc.nextLine();
 
-        return getFromList(playerInput);
+        return getClassFromList(playerInput);
     }
 
-    private CharacterClass getFromList(String className) {
+    private CharacterClass getClassFromList(String className) {
         if (className.matches("-?\\d+")) {
             for (int i = 0; i < characterClasses.size(); i++) {
                 if (i == Integer.parseInt(className)) {
@@ -101,6 +114,10 @@ public class MainLoop implements Runnable {
             }
         }
         return null;
+    }
+
+    public void setHero(Hero hero) {
+        this.hero = hero;
     }
 
     private void start() {

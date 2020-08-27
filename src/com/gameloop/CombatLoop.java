@@ -10,6 +10,7 @@ public class CombatLoop implements Runnable {
 
     private Hero hero;
     private Villain villain;
+    private MainLoop mainLoop;
 
     public CombatLoop(Hero hero, Villain villain) {
         this.hero = hero;
@@ -19,7 +20,7 @@ public class CombatLoop implements Runnable {
     @Override
     public void run() {
         start();
-        while (isRunning){
+        while (isRunning) {
 
             Printer.println("Combat between " + hero.getName() + " and " + villain.getName() + " starts");
             int heroPower = hero.getHealthPoints()
@@ -41,19 +42,23 @@ public class CombatLoop implements Runnable {
                     + villain.getDodge()
                     + villain.getDexterity();
             int i = heroPower - villainPower;
-            System.out.println(i);
-            if (i>0){
+
+
+            if (i > 0) {
                 System.out.println("Hero wins");
                 int exp = hero.getExperiencePoints() + getExperienceGained(villain);
                 hero.setExperiencePoints(exp);
                 System.out.println(hero.getExperiencePoints());
-            }else
+                mainLoop = new MainLoop();
+                mainLoop.setHero(hero);
+                mainLoop.combatMeet();
+            } else
                 System.out.println("Hero loses");
             stop();
         }
     }
 
-    private int getExperienceGained(Villain villain){
+    private int getExperienceGained(Villain villain) {
         int experience = villain.getHealthPoints()
                 + villain.getEndurance()
                 + villain.getManaPoints()

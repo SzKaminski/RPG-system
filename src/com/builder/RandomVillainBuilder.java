@@ -21,7 +21,9 @@ public class RandomVillainBuilder {
         this.villain = new Villain();
         this.r = new Random();
         characterClasses = new ClassesContainer().getCharacterClassList();
+    }
 
+    public RandomVillainBuilder withName() {
         this.firstNameList = new ArrayList<>();
         this.aliasNameList = new ArrayList<>();
         firstNameList.addAll(Arrays.asList("Five Fingers",
@@ -45,9 +47,6 @@ public class RandomVillainBuilder {
                 "Sweet",
                 "Phantom"
         ));
-    }
-
-    public RandomVillainBuilder withName() {
         villain.setName(aliasNameList.get(r.nextInt(aliasNameList.size())) +
                 " " + firstNameList.get(r.nextInt(firstNameList.size())));
         return this;
