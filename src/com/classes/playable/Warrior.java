@@ -1,23 +1,22 @@
 package com.classes.playable;
 
+import com.characters.characterAttributes.*;
 import com.classes.CharacterClass;
 import com.classes.Type;
 
 public class Warrior extends CharacterClass {
 
     public Warrior() {
-        createBasicClass();
-    }
+        super(new HealthPoints(50),
+                new Endurance(10),
+                new Intelligence(10),
+                new ManaPoints(0),
+                new Strenght(15),
+                new MeleeAttack(5),
+                new Dexterity(5),
+                new Dodge(5));
 
-    @Override
-    public void createBasicClass() {
         setName("Warrior");
         setType(Type.PHYSIC);
-        setHealthPoints(50);
-        setEndurance(10);
-        setManaPoints(0);
-        setIntelligence(10);
-        setStrenght(15);
-        setDexterity(5);
     }
 }

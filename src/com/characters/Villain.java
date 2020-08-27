@@ -1,6 +1,5 @@
 package com.characters;
 
-import com.builder.RandomVillainBuilder;
 import com.classes.CharacterClass;
 
 public class Villain extends Character {
@@ -28,7 +27,7 @@ public class Villain extends Character {
         this.setAttributes();
     }
 
-    public void setAttributes() {
+    private void setAttributes() {
         this.setHealthPoints(getCharacterClass().getHealthPoints());
         this.setEndurance(getCharacterClass().getEndurance());
         this.setManaPoints(getCharacterClass().getManaPoints());
@@ -37,15 +36,5 @@ public class Villain extends Character {
         this.setStrenght(getCharacterClass().getStrenght());
         this.setDodge(getCharacterClass().getDodge());
         this.setDexterity(getCharacterClass().getDexterity());
-    }
-
-    public Villain getRandomVillain() {
-
-        return new RandomVillainBuilder()
-                .withName()
-                .withCharacterClass()
-                .withRandomLvl()
-                .build();
-
     }
 }

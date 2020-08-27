@@ -1,5 +1,6 @@
 package com.characters;
 
+import com.characters.characterAttributes.*;
 import com.classes.CharacterClass;
 import com.visualeffects.Printer;
 
@@ -11,7 +12,6 @@ public class Hero extends Character {
     private CharacterClass characterClass;
     private int experiencePoints;
     private int newLevelPoints = 50;
-    private Scanner sc;
     private int increasePoints = 3;
 
     public Hero() {
@@ -21,8 +21,9 @@ public class Hero extends Character {
         System.out.println("Next lvl: " + experiencePoints + "/" + newLevelPoints);
 
         if (experiencePoints >= newLevelPoints) {
-            int levelUp = getLevel() + 1;
-            System.out.println("You reached new level: " + levelUp);
+            int levelUp = this.getLevel() + 1;
+            setLevel(levelUp);
+            System.out.println("You have reached new level: " + levelUp);
             newLevelPoints = newLevelPoints * 3;
             increasePoints = 3;
             getStatisticsIncreaser();
@@ -32,29 +33,29 @@ public class Hero extends Character {
     public int getStatisticsIncreaser() {
 
         Scanner sc = new Scanner(System.in);
-        Printer.println("Develop statistics | Points to use: " + increasePoints);
+        Printer.println("Develop attributes | Points to use: " + increasePoints);
 
-        System.out.println("1) Str:" + getStrenght() + " +1");
-        System.out.println("2) Dex:" + getDexterity() + " +1");
-        System.out.println("3) End:" + getEndurance() + " +1");
-        System.out.println("4) Int:" + getIntelligence() + " +1");
+        System.out.println("1) " + getStrenght().getShortcut() + ": " + getStrenght().getValue() + " +1");
+        System.out.println("2) " + getDexterity().getShortcut() + ": " + getDexterity().getValue() + " +1");
+        System.out.println("3) " + getEndurance().getShortcut() + ": " + getEndurance().getValue() + " +1");
+        System.out.println("4) " + getIntelligence().getShortcut() + ": " + getIntelligence().getValue() + " +1");
 
         String s = sc.nextLine();
         switch (s) {
             case "1":
-                setStrenght(getStrenght() + 1);
+                setStrenght(new Strenght(getStrenght().getValue() + 1));
                 increasePoints = increasePoints - 1;
                 break;
             case "2":
-                setDexterity(getDexterity() + 1);
+                setDexterity(new Dexterity(getDexterity().getValue() + 1));
                 increasePoints = increasePoints - 1;
                 break;
             case "3":
-                setEndurance(getEndurance() + 1);
+                setEndurance(new Endurance(getEndurance().getValue() + 1));
                 increasePoints = increasePoints - 1;
                 break;
             case "4":
-                setIntelligence(getIntelligence() + 1);
+                setIntelligence(new Intelligence(getIntelligence().getValue() + 1));
                 increasePoints = increasePoints - 1;
                 break;
             default:
@@ -62,7 +63,7 @@ public class Hero extends Character {
                 break;
         }
 
-        if (increasePoints >0){
+        if (increasePoints > 0) {
             getStatisticsIncreaser();
         }
 

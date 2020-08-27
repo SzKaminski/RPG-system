@@ -1,12 +1,16 @@
 package com.gameloop;
 
 import com.builder.HeroBuilder;
+import com.builder.RandomVillainBuilder;
 import com.characters.Hero;
 import com.characters.Villain;
 import com.classes.*;
 import com.visualeffects.Printer;
 
 import java.util.*;
+
+import static com.visualeffects.PauseEffect.pause;
+import static com.visualeffects.Printer.*;
 
 public class MainLoop implements Runnable {
 
@@ -33,24 +37,15 @@ public class MainLoop implements Runnable {
         }
     }
 
-    private void pause() {
-        try {
-            for (int i = 0; i < 3; i++) {
-                System.out.print(".");
-                Thread.sleep(800);
-            }
-            System.out.print("\n");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
 
     public void combatMeet() {
         System.out.println();
-        Printer.println(hero.getName() + " the " + hero.getCharacterClass().getName() + " meets an opponent");
+        println(hero.getName() + " the " + hero.getCharacterClass().getName() + " meets an opponent");
         pause();
-        Villain villain = new Villain();
-        randomVillain = villain.getRandomVillain();
+        randomVillain = new RandomVillainBuilder().withName()
+                .withCharacterClass()
+                .withRandomLvl()
+                .build();
 
         System.out.println(randomVillain.getName() +
                 " " + randomVillain.getCharacterClass().getName() +
@@ -76,8 +71,8 @@ public class MainLoop implements Runnable {
     }
 
     private void createProtagonist() {
-        Printer.println("Please create new character.");
-        Printer.println("Enter character's name:");
+        println("Please create new character.");
+        println("Enter character's name:");
         String characterName = sc.nextLine();
 
         CharacterClass characterClass = chooseCharacterClass();

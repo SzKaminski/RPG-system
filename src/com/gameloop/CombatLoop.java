@@ -4,6 +4,8 @@ import com.characters.Hero;
 import com.characters.Villain;
 import com.visualeffects.Printer;
 
+import static com.visualeffects.PauseEffect.pause;
+
 public class CombatLoop implements Runnable {
 
     private boolean isRunning;
@@ -21,17 +23,25 @@ public class CombatLoop implements Runnable {
     public void run() {
         start();
         while (isRunning) {
-
+            pause();
             Printer.println("Combat between " + hero.getName() + " and " + villain.getName() + " starts");
-            int heroPower = hero.getHealthPoints()
-                    + hero.getEndurance()
-                    + hero.getManaPoints()
-                    + hero.getIntelligence()
-                    + hero.getMeleeAttack()
-                    + hero.getStrenght()
-                    + hero.getDodge()
-                    + hero.getDexterity();
+            int heroPower = hero.getHealthPoints().getValue()
+                    + hero.getEndurance().getValue()
+                    + hero.getManaPoints().getValue()
+                    + hero.getIntelligence().getValue()
+                    + hero.getMeleeAttack().getValue()
+                    + hero.getStrenght().getValue()
+                    + hero.getDodge().getValue()
+                    + hero.getDexterity().getValue();
 
+            System.out.println(hero.getName() + " lvl." + hero.getLevel() + " || lvl." + villain.getLevel() + " " + villain.getName());
+            System.out.println("      Str:" + hero.getStrenght().getValue() + " || " + villain.getStrenght().getValue());
+            System.out.println("      Dex:" + hero.getDexterity().getValue() + " || " + villain.getDexterity().getValue());
+            System.out.println("      End:" + hero.getEndurance().getValue() + " || " + villain.getEndurance().getValue());
+            System.out.println("      Int:" + hero.getIntelligence().getValue() + " || " + villain.getIntelligence().getValue());
+            System.out.println();
+            System.out.println("      Attack: "+ hero.getMeleeAttack().getValue() + " || " + villain.getMeleeAttack().getValue());
+            System.out.println("      HP: "+ hero.getHealthPoints().getValue() + " || " + villain.getHealthPoints().getValue());
             int villainPower = getVillainPower(villain);
             int i = heroPower - villainPower;
 
@@ -50,14 +60,14 @@ public class CombatLoop implements Runnable {
     }
 
     private int getVillainPower(Villain villain) {
-        return villain.getHealthPoints()
-                + villain.getEndurance()
-                + villain.getManaPoints()
-                + villain.getIntelligence()
-                + villain.getMeleeAttack()
-                + villain.getStrenght()
-                + villain.getDodge()
-                + villain.getDexterity();
+        return villain.getHealthPoints().getValue()
+                + villain.getEndurance().getValue()
+                + villain.getManaPoints().getValue()
+                + villain.getIntelligence().getValue()
+                + villain.getMeleeAttack().getValue()
+                + villain.getStrenght().getValue()
+                + villain.getDodge().getValue()
+                + villain.getDexterity().getValue();
     }
 
     private int getExperienceGained(Villain villain) {

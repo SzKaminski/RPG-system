@@ -1,24 +1,23 @@
 package com.classes.playable;
 
+import com.characters.characterAttributes.*;
 import com.classes.CharacterClass;
 import com.classes.Type;
 
 public class Mage extends CharacterClass {
 
     public Mage() {
-        createBasicClass();
-    }
+        super(new HealthPoints(20),
+                new Endurance(5),
+                new Intelligence(20),
+                new ManaPoints(50),
+                new Strenght(5),
+                new MeleeAttack(5),
+                new Dexterity(5),
+                new Dodge(5)
+        );
 
-    @Override
-    public void createBasicClass() {
         setName("Mage");
         setType(Type.MAGIC);
-        setHealthPoints(20);
-        setEndurance(5);
-        setManaPoints(50);
-        setIntelligence(20);
-        setStrenght(5);
-        setDexterity(5);
     }
-
 }

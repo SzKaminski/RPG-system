@@ -17,7 +17,7 @@ public class Printer {
             System.out.print(ANSI_YELLOW + text.charAt(i) + ANSI_RESET);
 
             try {
-                Thread.sleep(100);
+                Thread.sleep(10);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

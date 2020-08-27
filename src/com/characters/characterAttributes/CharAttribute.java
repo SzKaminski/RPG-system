@@ -12,6 +12,9 @@ public abstract class CharAttribute {
         this.value = value;
     }
 
+    public CharAttribute() {
+    }
+
     public String getName() {
         return name;
     }
