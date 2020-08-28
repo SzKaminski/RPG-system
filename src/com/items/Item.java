@@ -9,6 +9,9 @@ public abstract class Item {
     private int value;
     private ItemCondition condition;
 
+    public Item() {
+    }
+
     public Item(String name, ItemType itemType, int value, ItemCondition condition) {
         this.name = name;
         this.itemType = itemType;

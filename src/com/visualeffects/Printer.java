@@ -12,10 +12,9 @@ public class Printer {
     public static final String ANSI_CYAN = "\u001B[36m";
     public static final String ANSI_WHITE = "\u001B[37m";
 
-    public static void println(String text) {
+    public static void println(String text, String color) {
         for (int i = 0; i < text.length(); i++) {
-            System.out.print(ANSI_YELLOW + text.charAt(i) + ANSI_RESET);
-
+            System.out.print(color + text.charAt(i) + ANSI_RESET);
             try {
                 Thread.sleep(10);
             } catch (InterruptedException e) {
@@ -24,6 +23,8 @@ public class Printer {
         }
         System.out.println();
     }
+
+
 
     public static void print(String text) {
         for (int i = 0; i < text.length(); i++) {

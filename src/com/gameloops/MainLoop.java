@@ -1,11 +1,10 @@
-package com.gameloop;
+package com.gameloops;
 
 import com.builder.HeroBuilder;
 import com.builder.RandomVillainBuilder;
 import com.characters.Hero;
 import com.characters.Villain;
 import com.classes.*;
-import com.visualeffects.Printer;
 
 import java.util.*;
 
@@ -40,7 +39,7 @@ public class MainLoop implements Runnable {
 
     public void combatMeet() {
         System.out.println();
-        println(hero.getName() + " the " + hero.getCharacterClass().getName() + " meets an opponent");
+        println(hero.getName() + " the " + hero.getCharacterClass().getName() + " meets an opponent","\u001B[33m");
         pause();
         randomVillain = new RandomVillainBuilder().withName()
                 .withCharacterClass()
@@ -71,8 +70,8 @@ public class MainLoop implements Runnable {
     }
 
     private void createProtagonist() {
-        println("Please create new character.");
-        println("Enter character's name:");
+        println("Please create new character.","\u001B[33m");
+        println("Enter character's name:","\u001B[33m");
         String characterName = sc.nextLine();
 
         CharacterClass characterClass = chooseCharacterClass();

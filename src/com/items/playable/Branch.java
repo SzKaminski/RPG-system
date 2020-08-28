@@ -7,7 +7,13 @@ import com.items.Weapon;
 public class Branch extends Weapon {
 
     public Branch() {
-        super("Branch", 0, new ItemCondition(new Strenght(), 5));
+        super("Branch",
+                0,
+                new ItemCondition(new Strenght(), 5),
+                1,
+                1,
+                0.01);
     }
+
 
 }

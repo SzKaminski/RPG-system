@@ -1,6 +1,6 @@
 package com;
 
-import com.gameloop.MainLoop;
+import com.gameloops.MainLoop;
 
 public class Main {
 

@@ -34,7 +34,7 @@ public class Hero extends Character {
     public int getStatisticsIncreaser() {
 
         Scanner sc = new Scanner(System.in);
-        Printer.println("Develop attributes | Points to use: " + increasePoints);
+        Printer.println("Develop attributes | Points to use: " + increasePoints,"\u001B[33m");
 
         System.out.println("1) " + getStrenght().getShortcut() + ": " + getStrenght().getValue() + " +1");
         System.out.println("2) " + getDexterity().getShortcut() + ": " + getDexterity().getValue() + " +1");

@@ -3,6 +3,7 @@ package com.characters;
 import com.characters.characterAttributes.*;
 import com.items.Item;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Character {
@@ -25,6 +26,7 @@ public abstract class Character {
     private List<Item> items;
 
     public Character() {
+        items = new ArrayList<>(3);
     }
 
     //todo: Have to figure out what to do with special attributes (hp, mp, meleeAttack, dodge)
