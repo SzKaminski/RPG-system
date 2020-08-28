@@ -27,6 +27,7 @@ public class Hero extends Character {
             newLevelPoints = newLevelPoints * 3;
             increasePoints = 3;
             getStatisticsIncreaser();
+
         }
     }
 
@@ -62,11 +63,10 @@ public class Hero extends Character {
                 System.out.println("Type 1-4");
                 break;
         }
-
+        increseAttributes();
         if (increasePoints > 0) {
             getStatisticsIncreaser();
         }
-
         return increasePoints;
     }
 
@@ -104,14 +104,25 @@ public class Hero extends Character {
     }
 
     public void setAttributes() {
-        this.setHealthPoints(getCharacterClass().getHealthPoints());
+        this.setHealthPoints(getCharacterClass().getEndurance());
         this.setEndurance(getCharacterClass().getEndurance());
-        this.setManaPoints(getCharacterClass().getManaPoints());
+        this.setManaPoints(getCharacterClass().getIntelligence());
         this.setIntelligence(getCharacterClass().getIntelligence());
-        this.setMeleeAttack(getCharacterClass().getMeleeAttack());
+        this.setMeleeAttack(getCharacterClass().getStrenght());
         this.setStrenght(getCharacterClass().getStrenght());
-        this.setDodge(getCharacterClass().getDodge());
+        this.setDodge(getCharacterClass().getDexterity());
         this.setDexterity(getCharacterClass().getDexterity());
+    }
+
+    public void increseAttributes(){
+        this.setHealthPoints(getEndurance());
+        this.setEndurance(getEndurance());
+        this.setManaPoints(getIntelligence());
+        this.setIntelligence(getIntelligence());
+        this.setMeleeAttack(getStrenght());
+        this.setStrenght(getStrenght());
+        this.setDodge(getDexterity());
+        this.setDexterity(getDexterity());
     }
 
 }

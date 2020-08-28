@@ -7,14 +7,11 @@ import com.classes.Type;
 public class Rogue extends CharacterClass {
 
     public Rogue() {
-        super(new HealthPoints(30),
-                new Endurance(5),
-                new Intelligence(15),
-                new ManaPoints(5),
-                new Strenght(10),
-                new MeleeAttack(5),
+        super(new Strenght(10),
                 new Dexterity(50),
-                new Dodge(5));
+                new Endurance(5),
+                new Intelligence(15));
+
 
         setName("Rogue");
         setType(Type.PHYSIC);

@@ -29,22 +29,15 @@ public abstract class Character {
 
     //todo: Have to figure out what to do with special attributes (hp, mp, meleeAttack, dodge)
 
-    public Character(HealthPoints healthPoints,
-                     Endurance endurance,
-                     Intelligence intelligence,
-                     ManaPoints manaPoints,
-                     Strenght strenght,
-                     MeleeAttack meleeAttack,
+    public Character(Strenght strenght,
                      Dexterity dexterity,
-                     Dodge dodge) {
-        this.healthPoints = healthPoints;
+                     Endurance endurance,
+                     Intelligence intelligence) {
+        this.strenght = strenght;
+        this.dexterity = dexterity;
         this.endurance = endurance;
         this.intelligence = intelligence;
-        this.manaPoints = manaPoints;
-        this.strenght = strenght;
-        this.meleeAttack = meleeAttack;
-        this.dexterity = dexterity;
-        this.dodge = dodge;
+
     }
 
     public int getLevel() {
@@ -55,17 +48,14 @@ public abstract class Character {
         this.level = level;
     }
 
-
-    /*public void setMeleeAttack(int meleeAttack) {
-        this.meleeAttack = this.strenght * 10 / 20;
-    }*/
-
     public HealthPoints getHealthPoints() {
         return healthPoints;
     }
 
-    public void setHealthPoints(HealthPoints healthPoints) {
-        this.healthPoints = healthPoints;
+    public void setHealthPoints(Endurance endurance) {
+        this.healthPoints = new HealthPoints();
+        int i = healthPoints.computeValue(endurance.getValue());
+        healthPoints.setValue(i);
     }
 
     public Endurance getEndurance() {
@@ -88,8 +78,10 @@ public abstract class Character {
         return manaPoints;
     }
 
-    public void setManaPoints(ManaPoints manaPoints) {
-        this.manaPoints = manaPoints;
+    public void setManaPoints(Intelligence intelligence) {
+        this.manaPoints = new ManaPoints();
+        int i = manaPoints.computeValue(intelligence.getValue());
+        manaPoints.setValue(i);
     }
 
     public Strenght getStrenght() {
@@ -104,8 +96,10 @@ public abstract class Character {
         return meleeAttack;
     }
 
-    public void setMeleeAttack(MeleeAttack meleeAttack) {
-        this.meleeAttack = meleeAttack;
+    public void setMeleeAttack(Strenght strenght) {
+        this.meleeAttack = new MeleeAttack();
+        int i = meleeAttack.computeValue(strenght.getValue());
+        meleeAttack.setValue(i);
     }
 
     public Dexterity getDexterity() {
@@ -120,11 +114,14 @@ public abstract class Character {
         return dodge;
     }
 
-    public void setDodge(Dodge dodge) {
-        this.dodge = dodge;
+    public void setDodge(Dexterity dexterity) {
+        this.dodge = new Dodge();
+        int i = dodge.computeValue(dexterity.getValue());
+        dodge.setValue(i);
     }
 
     public CharAttribute getAttribute() {
         return charAttribute;
     }
+
 }

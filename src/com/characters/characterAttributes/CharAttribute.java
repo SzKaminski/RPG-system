@@ -12,8 +12,15 @@ public abstract class CharAttribute {
         this.value = value;
     }
 
+    public CharAttribute(String name, String shortcut) {
+        this.name = name;
+        this.shortcut = shortcut;
+    }
+
     public CharAttribute() {
     }
+
+
 
     public String getName() {
         return name;
