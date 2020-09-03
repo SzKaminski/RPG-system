@@ -29,8 +29,6 @@ public abstract class Character {
         items = new ArrayList<>(3);
     }
 
-    //todo: Have to figure out what to do with special attributes (hp, mp, meleeAttack, dodge)
-
     public Character(Strenght strenght,
                      Dexterity dexterity,
                      Endurance endurance,
@@ -54,10 +52,16 @@ public abstract class Character {
         return healthPoints;
     }
 
-    public void setHealthPoints(Endurance endurance) {
+    public void updateHealthPoints(Endurance endurance) {
         this.healthPoints = new HealthPoints();
         int i = healthPoints.computeValue(endurance.getValue());
         healthPoints.setValue(i);
+        setHealthPoints(i);
+    }
+
+    //todo: need to improve these solution / value should not be generated in the method above
+    public void setHealthPoints(int value) {
+        this.healthPoints.setActualValue(value);
     }
 
     public Endurance getEndurance() {

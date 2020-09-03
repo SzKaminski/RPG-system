@@ -63,7 +63,7 @@ public class Hero extends Character {
                 System.out.println("Type 1-4");
                 break;
         }
-        increseAttributes();
+        increaseAttributes();
         if (increasePoints > 0) {
             getStatisticsIncreaser();
         }
@@ -104,7 +104,7 @@ public class Hero extends Character {
     }
 
     public void setAttributes() {
-        this.setHealthPoints(getCharacterClass().getEndurance());
+        this.updateHealthPoints(getCharacterClass().getEndurance());
         this.setEndurance(getCharacterClass().getEndurance());
         this.setManaPoints(getCharacterClass().getIntelligence());
         this.setIntelligence(getCharacterClass().getIntelligence());
@@ -114,8 +114,8 @@ public class Hero extends Character {
         this.setDexterity(getCharacterClass().getDexterity());
     }
 
-    public void increseAttributes(){
-        this.setHealthPoints(getEndurance());
+    public void increaseAttributes(){
+        this.updateHealthPoints(getEndurance());
         this.setEndurance(getEndurance());
         this.setManaPoints(getIntelligence());
         this.setIntelligence(getIntelligence());

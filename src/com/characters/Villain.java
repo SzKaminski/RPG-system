@@ -4,6 +4,8 @@ import com.classes.CharacterClass;
 
 public class Villain extends Character {
 
+    //todo: depends on vil's lvl one should have an alias instead of a number as a level next to name when the combat starts
+
     private String name;
     private CharacterClass characterClass;
 
@@ -28,7 +30,7 @@ public class Villain extends Character {
     }
 
     public void setAttributes() {
-        this.setHealthPoints(getCharacterClass().getEndurance());
+        this.updateHealthPoints(getCharacterClass().getEndurance());
         this.setEndurance(getCharacterClass().getEndurance());
         this.setManaPoints(getCharacterClass().getIntelligence());
         this.setIntelligence(getCharacterClass().getIntelligence());
@@ -38,8 +40,8 @@ public class Villain extends Character {
         this.setDexterity(getCharacterClass().getDexterity());
     }
 
-    public void increseAttributes(){
-        this.setHealthPoints(getEndurance());
+    public void increaseAttributes(){
+        this.updateHealthPoints(getEndurance());
         this.setEndurance(getEndurance());
         this.setManaPoints(getIntelligence());
         this.setIntelligence(getIntelligence());
