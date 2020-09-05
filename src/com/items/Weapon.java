@@ -1,5 +1,8 @@
 package com.items;
 
+import com.characters.Character;
+import com.characters.characterAttributes.MeleeAttack;
+
 import java.util.Random;
 
 public class Weapon extends Item {
@@ -22,6 +25,10 @@ public class Weapon extends Item {
         this.critChancePercentage = critChances;
     }
 
+    public int getBaseAttack() {
+        return baseAttack;
+    }
+
     public void setBaseAttack(int baseAttack) {
         int i = getFluctuationState();
         if (i > 0) {
@@ -38,5 +45,14 @@ public class Weapon extends Item {
 
     public boolean isCritical(double critChances) {
         return r.nextDouble() > 1.0 - critChances;
+    }
+
+    public int increaseCharacterAttack(Character c){
+        MeleeAttack characterAttack = c.getMeleeAttack();
+        if (isCritical(this.critChancePercentage))
+            return characterAttack.getValue() + getBaseAttack()*10;
+        else
+            return characterAttack.getValue() + getBaseAttack();
+
     }
 }

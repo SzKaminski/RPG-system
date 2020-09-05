@@ -8,6 +8,7 @@ public abstract class Item {
     private ItemType itemType;
     private int value;
     private ItemCondition condition;
+    private boolean equipped;
 
     public Item() {
     }
@@ -56,5 +57,13 @@ public abstract class Item {
 
     public boolean isCondidionMet(Character character){
         return character.getAttribute().getValue() >= condition.getValue();
+    }
+
+    public void setEquipped(boolean equipped) {
+        this.equipped = equipped;
+    }
+
+    public boolean isEquipped() {
+        return equipped;
     }
 }
