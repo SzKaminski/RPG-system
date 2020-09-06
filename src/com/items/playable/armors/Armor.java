@@ -1,4 +1,8 @@
-package com.items;
+package com.items.playable.armors;
+
+import com.items.Item;
+import com.items.ItemCondition;
+import com.items.ItemType;
 
 public class Armor extends Item {
 

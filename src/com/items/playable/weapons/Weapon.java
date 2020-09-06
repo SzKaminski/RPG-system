@@ -1,7 +1,10 @@
-package com.items;
+package com.items.playable.weapons;
 
 import com.characters.Character;
 import com.characters.characterAttributes.MeleeAttack;
+import com.items.Item;
+import com.items.ItemCondition;
+import com.items.ItemType;
 
 import java.util.Random;
 

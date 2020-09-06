@@ -20,6 +20,12 @@ public abstract class Item {
         this.condition = condition;
     }
 
+    public Item(String name, ItemType itemType, int value) {
+        this.name = name;
+        this.itemType = itemType;
+        this.value = value;
+    }
+
     //todo: i want to create special attributes for all items
    // public abstract void getSpecialAttribute();
 

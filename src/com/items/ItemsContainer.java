@@ -1,9 +1,12 @@
 package com.items;
 
-import com.characters.Character;
-import com.items.playable.Branch;
-import com.items.playable.PeasantShirt;
-import com.items.playable.RustySword;
+import com.items.playable.ammunition.Arrows;
+import com.items.playable.amulets.HealthAmulet;
+import com.items.playable.consumables.Cheese;
+import com.items.playable.shields.OldWoodenShield;
+import com.items.playable.weapons.Branch;
+import com.items.playable.armors.PeasantShirt;
+import com.items.playable.weapons.RustySword;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +23,10 @@ public class ItemsContainer {
         items.add(new Branch());
         items.add(new RustySword());
         items.add(new PeasantShirt());
+        items.add(new Arrows());
+        items.add(new HealthAmulet());
+        items.add(new Cheese());
+        items.add(new OldWoodenShield());
         r = new Random();
     }
 

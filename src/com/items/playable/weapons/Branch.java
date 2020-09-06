@@ -1,8 +1,7 @@
-package com.items.playable;
+package com.items.playable.weapons;
 
 import com.characters.characterAttributes.Strength;
 import com.items.ItemCondition;
-import com.items.Weapon;
 
 public class Branch extends Weapon {
 
