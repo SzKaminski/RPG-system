@@ -26,7 +26,7 @@ public class RandomVillainBuilder {
     public RandomVillainBuilder withName() {
         this.firstNameList = new ArrayList<>();
         this.aliasNameList = new ArrayList<>();
-        firstNameList.addAll(Arrays.asList("Five Fingers",
+        firstNameList.addAll(Arrays.asList("Keegan",
                 "Emmerson",
                 "Eldridge",
                 "Bret",
@@ -46,7 +46,7 @@ public class RandomVillainBuilder {
                 "Bullseye",
                 "Sweet",
                 "Phantom",
-                "Keegan"
+                "Five Fingers"
         ));
         villain.setName(aliasNameList.get(r.nextInt(aliasNameList.size())) +
                 " " + firstNameList.get(r.nextInt(firstNameList.size())));

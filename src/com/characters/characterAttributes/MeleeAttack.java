@@ -2,12 +2,8 @@ package com.characters.characterAttributes;
 
 public class MeleeAttack extends CharAttribute implements ComputingAttribute {
 
-    public MeleeAttack() {
-        super("Melee Attack", "AP");
+    public MeleeAttack(int value) {
+        super("Melee Attack", "AP", value);
     }
 
-    @Override
-    public int computeValue(int attribute) {
-        return attribute * 10 / 20;
-    }
 }

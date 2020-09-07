@@ -7,7 +7,7 @@ import com.classes.Type;
 public class Mage extends CharacterClass {
 
     public Mage() {
-        super(new Strenght(5),
+        super(new Strength(5),
                 new Dexterity(5),
                 new Endurance(5),
                 new Intelligence(20));

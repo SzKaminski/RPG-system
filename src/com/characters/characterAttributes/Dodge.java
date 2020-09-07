@@ -2,12 +2,8 @@ package com.characters.characterAttributes;
 
 public class Dodge extends CharAttribute implements ComputingAttribute {
 
-    public Dodge() {
-        super("Dodge", "Dod");
+    public Dodge(int value) {
+        super("Dodge", "Dod", value);
     }
 
-    @Override
-    public int computeValue(int attribute) {
-        return attribute * 10 / 20;
-    }
 }

@@ -2,12 +2,9 @@ package com.characters.characterAttributes;
 
 public class ManaPoints extends CharAttribute implements ComputingAttribute {
 
-    public ManaPoints() {
-        super("Mana Points", "MP");
+    public ManaPoints(int value) {
+        super("Mana Points", "MP", value);
     }
 
-    @Override
-    public int computeValue(int attribute) {
-        return attribute * 5;
-    }
+
 }

@@ -27,28 +27,17 @@ public class Villain extends Character {
     public void setCharacterClass(CharacterClass characterClass) {
         this.characterClass = characterClass;
         this.setAttributes();
+        this.setBasicHealthPoints();
+        this.setBasicManaPoints();
+        this.setBasicMeleeAttack();
+        this.setBasicDodge();
     }
 
     public void setAttributes() {
-        this.updateHealthPoints(getCharacterClass().getEndurance());
         this.setEndurance(getCharacterClass().getEndurance());
-        this.setManaPoints(getCharacterClass().getIntelligence());
         this.setIntelligence(getCharacterClass().getIntelligence());
-        this.setMeleeAttack(getCharacterClass().getStrenght());
-        this.setStrenght(getCharacterClass().getStrenght());
-        this.setDodge(getCharacterClass().getDexterity());
+        this.setStrength(getCharacterClass().getStrength());
         this.setDexterity(getCharacterClass().getDexterity());
-    }
-
-    public void increaseAttributes(){
-        this.updateHealthPoints(getEndurance());
-        this.setEndurance(getEndurance());
-        this.setManaPoints(getIntelligence());
-        this.setIntelligence(getIntelligence());
-        this.setMeleeAttack(getStrenght());
-        this.setStrenght(getStrenght());
-        this.setDodge(getDexterity());
-        this.setDexterity(getDexterity());
     }
 
 }

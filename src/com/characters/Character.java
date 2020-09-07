@@ -1,10 +1,13 @@
 package com.characters;
 
 import com.characters.characterAttributes.*;
+import com.items.Equipment;
 import com.items.Item;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.items.playable.ammunition.Ammunition;
+import com.items.playable.amulets.Amulet;
+import com.items.playable.armors.Armor;
+import com.items.playable.shields.Shield;
+import com.items.playable.weapons.Weapon;
 
 public abstract class Character {
 
@@ -12,7 +15,7 @@ public abstract class Character {
 
     private CharAttribute charAttribute;
 
-    private Strenght strenght;
+    private Strength strength;
     private Dexterity dexterity;
     private Endurance endurance;
     private Intelligence intelligence;
@@ -20,24 +23,63 @@ public abstract class Character {
     private MeleeAttack meleeAttack;
     private Dodge dodge;
     private HealthPoints healthPoints;
+    private HealthPoints actualHealthPoints;
     private ManaPoints manaPoints;
 
+    private Weapon equippedWeapon;
+    private Armor equippedArmor;
+    private Amulet equippedAmulet;
+    private Ammunition equippedAmmunition;
+    private Shield equippedShield;
 
-    private List<Item> items;
+    private Equipment<Item> items;
 
-    public Character() {
-        items = new ArrayList<>(3);
+    public Equipment<Item> getItems() {
+        return items;
     }
 
-    public Character(Strenght strenght,
+    public Character() {
+        items = new Equipment<>();
+    }
+
+    public Character(Strength strength,
                      Dexterity dexterity,
                      Endurance endurance,
                      Intelligence intelligence) {
-        this.strenght = strenght;
+        this.strength = strength;
         this.dexterity = dexterity;
         this.endurance = endurance;
         this.intelligence = intelligence;
+    }
 
+    public CharAttribute getAttribute() {
+        return charAttribute;
+    }
+
+
+    public HealthPoints getHealthPoints() {
+        return healthPoints;
+    }
+
+    public void setHealthPoints(HealthPoints healthPoints) {
+        this.healthPoints = healthPoints;
+    }
+
+    public void setBasicHealthPoints() {
+        int i = ComputingAttribute.computeHealthPoints(endurance.getValue());
+        setHealthPoints(new HealthPoints(i));
+    }
+
+    public HealthPoints getActualHealthPoints() {
+        return actualHealthPoints;
+    }
+
+    public void setActualHealthPoints(HealthPoints actualHealthPoints) {
+        if (actualHealthPoints.getValue() >= getHealthPoints().getValue()) {
+            this.actualHealthPoints = getHealthPoints();
+        } else {
+            this.actualHealthPoints = actualHealthPoints;
+        }
     }
 
     public int getLevel() {
@@ -46,22 +88,6 @@ public abstract class Character {
 
     public void setLevel(int level) {
         this.level = level;
-    }
-
-    public HealthPoints getHealthPoints() {
-        return healthPoints;
-    }
-
-    public void updateHealthPoints(Endurance endurance) {
-        this.healthPoints = new HealthPoints();
-        int i = healthPoints.computeValue(endurance.getValue());
-        healthPoints.setValue(i);
-        setHealthPoints(i);
-    }
-
-    //todo: need to improve these solution / value should not be generated in the method above
-    public void setHealthPoints(int value) {
-        this.healthPoints.setActualValue(value);
     }
 
     public Endurance getEndurance() {
@@ -84,28 +110,42 @@ public abstract class Character {
         return manaPoints;
     }
 
-    public void setManaPoints(Intelligence intelligence) {
-        this.manaPoints = new ManaPoints();
-        int i = manaPoints.computeValue(intelligence.getValue());
-        manaPoints.setValue(i);
+    public void setManaPoints(ManaPoints manaPoints) {
+        this.manaPoints = manaPoints;
     }
 
-    public Strenght getStrenght() {
-        return strenght;
+    public void setBasicManaPoints() {
+        int i = ComputingAttribute.computeManaPoints(intelligence.getValue());
+        setManaPoints(new ManaPoints(i));
     }
 
-    public void setStrenght(Strenght strenght) {
-        this.strenght = strenght;
+    public Strength getStrength() {
+        return strength;
+    }
+
+    public void setStrength(Strength strength) {
+        this.strength = strength;
     }
 
     public MeleeAttack getMeleeAttack() {
         return meleeAttack;
     }
 
-    public void setMeleeAttack(Strenght strenght) {
-        this.meleeAttack = new MeleeAttack();
-        int i = meleeAttack.computeValue(strenght.getValue());
-        meleeAttack.setValue(i);
+    public void setMeleeAttack(MeleeAttack meleeAttack) {
+        this.meleeAttack = meleeAttack;
+    }
+
+    public void setBasicMeleeAttack() {
+        int i = ComputingAttribute.computeMeleeAttack(strength.getValue());
+        setMeleeAttack(new MeleeAttack(i));
+    }
+
+    public void increaseAttack() {
+        if (this.equippedWeapon != null)
+            meleeAttack.setValue(this.getMeleeAttack().getValue() + this.getEquippedWeapon().getBaseAttack());
+        else
+            // setMeleeAttack(this.getStrength());
+            setBasicMeleeAttack();
     }
 
     public Dexterity getDexterity() {
@@ -120,14 +160,86 @@ public abstract class Character {
         return dodge;
     }
 
-    public void setDodge(Dexterity dexterity) {
-        this.dodge = new Dodge();
-        int i = dodge.computeValue(dexterity.getValue());
-        dodge.setValue(i);
+    public void setDodge(Dodge dodge) {
+        this.dodge = dodge;
     }
 
-    public CharAttribute getAttribute() {
-        return charAttribute;
+    public void setBasicDodge() {
+        int i = ComputingAttribute.computeDodge(strength.getValue());
+        setDodge(new Dodge(i));
     }
 
+    public Weapon getEquippedWeapon() {
+        return equippedWeapon;
+    }
+
+    public void setEquippedWeapon(Weapon equippedWeapon) {
+        equippedWeapon.setEquipped(true);
+        this.equippedWeapon = equippedWeapon;
+    }
+
+    public void unEquipWeapon(Weapon equippedWeapon) {
+        equippedWeapon.setEquipped(false);
+        this.equippedWeapon = null;
+    }
+
+    public Armor getEquippedArmor() {
+        return equippedArmor;
+    }
+//todo: defense increaser
+
+    protected void increaseDefense() {
+    }
+
+    public void setEquippedArmor(Armor equippedArmor) {
+        equippedArmor.setEquipped(true);
+        this.equippedArmor = equippedArmor;
+    }
+
+    protected void unEquipArmor(Armor equippedArmor) {
+        equippedArmor.setEquipped(false);
+        this.equippedArmor = null;
+    }
+
+    public Amulet getEquippedAmulet() {
+        return equippedAmulet;
+    }
+
+    public void setEquippedAmulet(Amulet equippedAmulet) {
+        equippedAmulet.setEquipped(true);
+        this.equippedAmulet = equippedAmulet;
+    }
+
+    protected void unEquipAmulet(Amulet equippedAmulet) {
+        equippedAmulet.setEquipped(false);
+        this.equippedAmulet = null;
+    }
+
+    protected Ammunition getEquippedAmmunition() {
+        return equippedAmmunition;
+    }
+
+    protected void setEquippedAmmunition(Ammunition equippedAmmunition) {
+        equippedAmmunition.setEquipped(true);
+        this.equippedAmmunition = equippedAmmunition;
+    }
+
+    protected void unEquipAmmunition(Ammunition equippedAmmunition) {
+        equippedAmmunition.setEquipped(false);
+        this.equippedAmmunition = null;
+    }
+
+    protected Shield getEquippedShield() {
+        return equippedShield;
+    }
+
+    protected void setEquippedShield(Shield equippedShield) {
+        equippedShield.setEquipped(true);
+        this.equippedShield = equippedShield;
+    }
+
+    protected void unEquipShield(Shield equippedShield) {
+        equippedShield.setEquipped(false);
+        this.equippedShield = null;
+    }
 }

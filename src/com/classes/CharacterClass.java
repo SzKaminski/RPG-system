@@ -9,8 +9,11 @@ public abstract class CharacterClass extends Character {
     private String name;
     private Type type;
 
-    public CharacterClass(Strenght strenght, Dexterity dexterity, Endurance endurance, Intelligence intelligence) {
-        super(strenght, dexterity, endurance, intelligence);
+    public CharacterClass() {
+    }
+
+    public CharacterClass(Strength strength, Dexterity dexterity, Endurance endurance, Intelligence intelligence) {
+        super(strength, dexterity, endurance, intelligence);
     }
 
     public String getName() {

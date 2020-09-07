@@ -1,10 +1,26 @@
 package com.characters;
 
-import com.characters.characterAttributes.*;
+import com.characters.characterAttributes.Dexterity;
+import com.characters.characterAttributes.Endurance;
+import com.characters.characterAttributes.Intelligence;
+import com.characters.characterAttributes.Strength;
 import com.classes.CharacterClass;
+import com.items.Item;
+import com.items.playable.ammunition.Ammunition;
+import com.items.playable.amulets.Amulet;
+import com.items.playable.armors.Armor;
+import com.items.playable.consumables.Cheese;
+import com.items.playable.consumables.Consumable;
+import com.items.playable.shields.Shield;
+import com.items.playable.weapons.Branch;
+import com.items.playable.weapons.Weapon;
 import com.visualeffects.Printer;
 
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import static com.visualeffects.PauseEffect.pause;
 
 public class Hero extends Character {
 
@@ -13,8 +29,18 @@ public class Hero extends Character {
     private int experiencePoints;
     private int newLevelPoints = 50;
     private int increasePoints = 3;
+    private Scanner sc;
 
     public Hero() {
+        //todo: added eq on start may not increase combat stats
+        Branch branch = new Branch();
+        branch.setEquipped(true);
+        setEquippedWeapon(branch);
+        getItems().add(branch);
+
+        Cheese cheese = new Cheese();
+
+        getItems().add(cheese);
     }
 
     public void checkIfNewLevel() {
@@ -33,10 +59,10 @@ public class Hero extends Character {
 
     public int getStatisticsIncreaser() {
 
-        Scanner sc = new Scanner(System.in);
-        Printer.println("Develop attributes | Points to use: " + increasePoints,"\u001B[33m");
+        sc = new Scanner(System.in);
+        Printer.println("Develop attributes | Points to use: " + increasePoints, Printer.PrinterColor.COLOR_YELLOW);
 
-        System.out.println("1) " + getStrenght().getShortcut() + ": " + getStrenght().getValue() + " +1");
+        System.out.println("1) " + getStrength().getShortcut() + ": " + getStrength().getValue() + " +1");
         System.out.println("2) " + getDexterity().getShortcut() + ": " + getDexterity().getValue() + " +1");
         System.out.println("3) " + getEndurance().getShortcut() + ": " + getEndurance().getValue() + " +1");
         System.out.println("4) " + getIntelligence().getShortcut() + ": " + getIntelligence().getValue() + " +1");
@@ -44,7 +70,7 @@ public class Hero extends Character {
         String s = sc.nextLine();
         switch (s) {
             case "1":
-                setStrenght(new Strenght(getStrenght().getValue() + 1));
+                setStrength(new Strength(getStrength().getValue() + 1));
                 increasePoints = increasePoints - 1;
                 break;
             case "2":
@@ -104,25 +130,206 @@ public class Hero extends Character {
     }
 
     public void setAttributes() {
-        this.updateHealthPoints(getCharacterClass().getEndurance());
         this.setEndurance(getCharacterClass().getEndurance());
-        this.setManaPoints(getCharacterClass().getIntelligence());
         this.setIntelligence(getCharacterClass().getIntelligence());
-        this.setMeleeAttack(getCharacterClass().getStrenght());
-        this.setStrenght(getCharacterClass().getStrenght());
-        this.setDodge(getCharacterClass().getDexterity());
+        this.setStrength(getCharacterClass().getStrength());
         this.setDexterity(getCharacterClass().getDexterity());
+
+        this.setBasicHealthPoints();
+        this.setBasicManaPoints();
+        this.setBasicMeleeAttack();
+        this.setBasicDodge();
     }
 
-    public void increaseAttributes(){
-        this.updateHealthPoints(getEndurance());
+    public void increaseAttributes() {
         this.setEndurance(getEndurance());
-        this.setManaPoints(getIntelligence());
+
         this.setIntelligence(getIntelligence());
-        this.setMeleeAttack(getStrenght());
-        this.setStrenght(getStrenght());
-        this.setDodge(getDexterity());
+       // this.setMeleeAttack(getStrength());
+        this.setStrength(getStrength());
+   //     this.setDodge(getDexterity());
         this.setDexterity(getDexterity());
+    }
+
+    public void manageEquipment() {
+
+        if (!getItems().isEmpty()) {
+            Printer.println("Equipment: ", Printer.PrinterColor.COLOR_GREEN);
+            for (int i = 0; i < getItems().size(); i++) {
+                if (getItems().get(i).isEquipped()) {
+                    Printer.println(i + ")- " + getItems().get(i).getName() + "(equipped) ", Printer.PrinterColor.COLOR_GREEN);
+                } else
+                    System.out.println(i + ")- " + getItems().get(i).getName() + " | value: " + getItems().get(i).getValue());
+            }
+        } else {
+            System.out.println("Equipment is empty!");
+            return;
+        }
+
+        System.out.println("Type 'e' + item number to equip/unequip item or 'r' + item number to remove");
+
+        Scanner eqScanner = new Scanner(System.in);
+        String manageItem = eqScanner.nextLine();
+
+        int itemNumber = 0;
+        Pattern p = Pattern.compile("\\d+");
+        Matcher m = p.matcher(manageItem);
+        while (m.find()) {
+            itemNumber = Integer.parseInt(m.group());
+        }
+        try {
+
+            Item item = getItems().get(itemNumber);
+
+            if (manageItem.equals("e" + itemNumber)) {
+                equipItemByType(item);
+            } else if (manageItem.equals("r" + itemNumber)) {
+                removeItemByType(item);
+            }
+
+        } catch (IndexOutOfBoundsException e) {
+            Printer.println("Try something else", Printer.PrinterColor.COLOR_RED);
+        }
+    }
+
+    public void equipItemByType(Item item) {
+        switch (item.getItemType()) {
+            case WEAPON:
+                if (!item.isEquipped()) {
+                    if (this.getEquippedWeapon() == null) {
+                        this.setEquippedWeapon((Weapon) item);
+                        //todo: won't work for villain equipment
+                        this.increaseAttack();
+                        System.out.println(item.getName() + " equipped");
+                    } else {
+                        System.out.println("you cannot equip another weapon");
+                    }
+                } else {
+                    this.unEquipWeapon((Weapon) item);
+                    this.increaseAttack();
+
+                    System.out.println(item.getName() + " unequipped");
+                }
+                pause();
+                break;
+            case ARMOR:
+                if (!item.isEquipped()) {
+                    if (this.getEquippedArmor() == null) {
+                        this.setEquippedArmor((Armor) item);
+                        //todo: won't work for villain equipment
+                        this.increaseDefense();
+                        System.out.println(item.getName() + " equipped");
+                    } else {
+                        System.out.println("you cannot equip another armor");
+                    }
+                } else {
+                    this.unEquipArmor((Armor) item);
+                    this.increaseDefense();
+                    System.out.println(item.getName() + " unequipped");
+                }
+                pause();
+                break;
+            case AMULET:
+                if (!item.isEquipped()) {
+                    if (this.getEquippedAmulet() == null) {
+                        this.setEquippedAmulet((Amulet) item);
+                        //todo: won't work for villain equipment
+                       // this.increaseDefense();
+                        System.out.println(item.getName() + " equipped");
+                    } else {
+                        System.out.println("you cannot equip another amulet");
+                    }
+                } else {
+                    this.unEquipAmulet((Amulet) item);
+                  //  this.increaseDefense();
+                    System.out.println(item.getName() + " unequipped");
+                }
+                pause();
+                break;
+            case AMMUNITION:
+                if (!item.isEquipped()) {
+                    if (this.getEquippedAmmunition() == null) {
+                        this.setEquippedAmmunition((Ammunition) item);
+                        //todo: won't work for villain equipment
+                        // this.increaseDefense();
+                        System.out.println(item.getName() + " equipped");
+                    } else {
+                        System.out.println("you cannot equip another ammunition");
+                    }
+                } else {
+                    this.unEquipAmmunition((Ammunition) item);
+                    //  this.increaseDefense();
+                    System.out.println(item.getName() + " unequipped");
+                }
+                pause();
+                break;
+            case SHIELD:
+                if (!item.isEquipped()) {
+                    if (this.getEquippedShield() == null) {
+                        this.setEquippedShield((Shield) item);
+                        //todo: won't work for villain equipment
+                        // this.increaseDefense();
+                        System.out.println(item.getName() + " equipped");
+                    } else {
+                        System.out.println("you cannot equip another shield");
+                    }
+                } else {
+                    this.unEquipShield((Shield) item);
+                    //  this.increaseDefense();
+                    System.out.println(item.getName() + " unequipped");
+                }
+                pause();
+                break;
+            case CONSUMABLE:
+                Consumable consumable = (Consumable) item;
+                consumable.consume(this);
+                this.getItems().remove(item);
+                pause();
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void removeItemByType(Item item) {
+        switch (item.getItemType()) {
+            case WEAPON:
+                this.unEquipWeapon((Weapon) item);
+                this.increaseAttack();
+                this.getItems().remove(item);
+                System.out.println(item.getName() +" removed");
+                break;
+            case ARMOR:
+                this.unEquipArmor((Armor) item);
+                this.increaseDefense();
+                this.getItems().remove(item);
+                System.out.println(item.getName() +" removed");
+                break;
+            case AMULET:
+                this.unEquipAmulet((Amulet) item);
+               // this.increaseDefense();
+                this.getItems().remove(item);
+                System.out.println(item.getName() +" removed");
+                break;
+            case AMMUNITION:
+                this.unEquipAmmunition((Ammunition) item);
+                // this.increaseDefense();
+                this.getItems().remove(item);
+                System.out.println(item.getName() +" removed");
+                break;
+            case SHIELD:
+                this.unEquipShield((Shield) item);
+                // this.increaseDefense();
+                this.getItems().remove(item);
+                System.out.println(item.getName() +" removed");
+                break;
+            case CONSUMABLE:
+                this.getItems().remove(item);
+                System.out.println(item.getName() +" removed");
+                break;
+            default:
+                break;
+        }
     }
 
 }
