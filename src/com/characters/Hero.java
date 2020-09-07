@@ -135,22 +135,24 @@ public class Hero extends Character {
         this.setStrength(getCharacterClass().getStrength());
         this.setDexterity(getCharacterClass().getDexterity());
 
-        this.setBasicHealthPoints();
-        this.setBasicManaPoints();
-        this.setBasicMeleeAttack();
-        this.setBasicDodge();
+        computeAttributesByActualCharacterStats();
 
         this.setActualHealthPoints(getHealthPoints());
     }
 
     public void increaseAttributes() {
         this.setEndurance(getEndurance());
-
         this.setIntelligence(getIntelligence());
-       // this.setMeleeAttack(getStrength());
         this.setStrength(getStrength());
-   //     this.setDodge(getDexterity());
         this.setDexterity(getDexterity());
+        computeAttributesByActualCharacterStats();
+    }
+
+    private void computeAttributesByActualCharacterStats() {
+        this.setBasicHealthPoints();
+        this.setBasicManaPoints();
+        this.setBasicMeleeAttack();
+        this.setBasicDodge();
     }
 
     public void manageEquipment() {
