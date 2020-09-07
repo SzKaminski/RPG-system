@@ -139,6 +139,8 @@ public class Hero extends Character {
         this.setBasicManaPoints();
         this.setBasicMeleeAttack();
         this.setBasicDodge();
+
+        this.setActualHealthPoints(getHealthPoints());
     }
 
     public void increaseAttributes() {

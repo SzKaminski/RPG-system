@@ -36,42 +36,50 @@ public class MainLoop implements Runnable {
         }
     }
 
-
     public void combatMeet() {
         System.out.println();
-        println(hero.getName() + " the " + hero.getCharacterClass().getName() + " meets an opponent","\u001B[33m");
+        println(hero.getName() + " the " + hero.getCharacterClass().getName() + " meets an opponent",PrinterColor.COLOR_YELLOW);
         pause();
         randomVillain = new RandomVillainBuilder().withName()
                 .withCharacterClass()
                 .withRandomLvl()
                 .build();
 
-        System.out.println(randomVillain.getName() +
-                " " + randomVillain.getCharacterClass().getName() +
-                " " + randomVillain.getLevel());
         chooseAction();
     }
 
     private void chooseAction() {
+        System.out.println(randomVillain.getName() +
+                " " + randomVillain.getCharacterClass().getName() +
+                " " + randomVillain.getLevel());
+
         System.out.println("Choose an action");
         int i = 0;
         System.out.println(i+1 + ") Fight!");
         System.out.println(i+2 + ") Try to avoid");
+        System.out.println("... or open equipment");
         String getPick = sc.nextLine();
 
-        if (getPick.equals("1")){
-            combatLoop = new CombatLoop(hero, randomVillain);
-            stop();
-            combatLoop.run();
-
-        } else
-            combatMeet();
+        switch (getPick) {
+            case "1":
+                combatLoop = new CombatLoop(hero, randomVillain);
+                stop();
+                combatLoop.run();
+                break;
+            case "2":
+                combatMeet();
+                break;
+            default:
+                hero.manageEquipment();
+                chooseAction();
+                break;
+        }
 
     }
 
     private void createProtagonist() {
-        println("Please create new character.","\u001B[33m");
-        println("Enter character's name:","\u001B[33m");
+        println("Please create new character.",PrinterColor.COLOR_YELLOW);
+        println("Enter character's name:",PrinterColor.COLOR_YELLOW);
         String characterName = sc.nextLine();
 
         CharacterClass characterClass = chooseCharacterClass();
