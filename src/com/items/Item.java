@@ -2,6 +2,8 @@ package com.items;
 
 import com.characters.Character;
 
+import java.util.Random;
+
 public abstract class Item {
 
     private String name;
@@ -9,6 +11,7 @@ public abstract class Item {
     private int value;
     private ItemCondition condition;
     private boolean equipped;
+    private Random drawNumber;
 
     public Item() {
     }
@@ -18,12 +21,17 @@ public abstract class Item {
         this.itemType = itemType;
         this.value = value;
         this.condition = condition;
+
     }
 
     public Item(String name, ItemType itemType, int value) {
         this.name = name;
         this.itemType = itemType;
         this.value = value;
+    }
+
+    public Random getDrawNumber() {
+        return new Random();
     }
 
     //todo: i want to create special attributes for all items

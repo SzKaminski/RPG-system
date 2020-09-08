@@ -11,6 +11,7 @@ import com.items.playable.amulets.Amulet;
 import com.items.playable.armors.Armor;
 import com.items.playable.consumables.Cheese;
 import com.items.playable.consumables.Consumable;
+import com.items.playable.shields.OldWoodenShield;
 import com.items.playable.shields.Shield;
 import com.items.playable.weapons.Branch;
 import com.items.playable.weapons.Weapon;
@@ -33,13 +34,12 @@ public class Hero extends Character {
 
     public Hero() {
         //todo: added eq on start may not increase combat stats
-        Branch branch = new Branch();
-        branch.setEquipped(true);
-        setEquippedWeapon(branch);
-        getItems().add(branch);
+        Shield woodenShield = new OldWoodenShield();
+        getItems().add(woodenShield);
+        woodenShield.setEquipped(true);
+        setEquippedShield(woodenShield);
 
         Cheese cheese = new Cheese();
-
         getItems().add(cheese);
     }
 

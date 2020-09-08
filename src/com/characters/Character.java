@@ -242,4 +242,17 @@ public abstract class Character {
         equippedShield.setEquipped(false);
         this.equippedShield = null;
     }
+
+    public int getReceivedHit(int receiveHit) {
+        if (getEquippedShield() != null) {
+            int blocked = getEquippedShield().block(this, receiveHit);
+            int actualHealthPointsValue = actualHealthPoints.getValue();
+            return actualHealthPointsValue - blocked;
+        }
+        return receiveHit;
+    }
+
+    public int receiveHit(int attackerValue) {
+        return attackerValue;
+    }
 }
