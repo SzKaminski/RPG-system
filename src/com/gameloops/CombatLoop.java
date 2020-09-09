@@ -39,7 +39,7 @@ public class CombatLoop implements Runnable {
                 items = new ItemsContainer();
                 Item randomItem = items.getRandomItem();
 
-                boolean add = hero.getItems().add(randomItem);
+                boolean add = hero.getItems().add(randomItem, hero);
                 if (add)
                     println(hero.getName() + " hero found " + randomItem.getName(), Printer.PrinterColor.COLOR_PURPLE);
                 else

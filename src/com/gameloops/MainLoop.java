@@ -38,7 +38,7 @@ public class MainLoop implements Runnable {
 
     public void combatMeet() {
         System.out.println();
-        println(hero.getName() + " the " + hero.getCharacterClass().getName() + " meets an opponent",PrinterColor.COLOR_YELLOW);
+        println(hero.getName() + " the " + hero.getCharacterClass().getName() + " meets an opponent", PrinterColor.COLOR_YELLOW);
         pause();
         randomVillain = new RandomVillainBuilder().withName()
                 .withCharacterClass()
@@ -55,8 +55,8 @@ public class MainLoop implements Runnable {
 
         System.out.println("Choose an action");
         int i = 0;
-        System.out.println(i+1 + ") Fight!");
-        System.out.println(i+2 + ") Try to avoid");
+        System.out.println(i + 1 + ") Fight!");
+        System.out.println(i + 2 + ") Try to avoid");
         System.out.println("... or open equipment");
         String getPick = sc.nextLine();
 
@@ -78,8 +78,8 @@ public class MainLoop implements Runnable {
     }
 
     private void createProtagonist() {
-        println("Please create new character.",PrinterColor.COLOR_YELLOW);
-        println("Enter character's name:",PrinterColor.COLOR_YELLOW);
+        println("Please create new character.", PrinterColor.COLOR_YELLOW);
+        println("Enter character's name:", PrinterColor.COLOR_YELLOW);
         String characterName = sc.nextLine();
 
         CharacterClass characterClass = chooseCharacterClass();

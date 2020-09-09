@@ -36,17 +36,17 @@ public class Hero extends Character {
 
     public Hero() {
         //todo: added eq on start may not increase combat stats
-        Shield woodenShield = new OldWoodenShield();
-        getItems().add(woodenShield);
+        /*Shield woodenShield = new OldWoodenShield();
+        getItems().add(woodenShield,this);
         woodenShield.setEquipped(true);
         setEquippedShield(woodenShield);
         HealthAmulet amulet = new HealthAmulet();
-        getItems().add(amulet);
+        getItems().add(amulet,this);
         amulet.setEquipped(true);
         setEquippedAmulet(amulet);
 
         Cheese cheese = new Cheese();
-        getItems().add(cheese);
+        getItems().add(cheese,this);*/
     }
 
     public void checkIfNewLevel() {
