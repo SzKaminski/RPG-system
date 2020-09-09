@@ -9,6 +9,7 @@ public class PeasantShirt extends Armor {
     public PeasantShirt() {
         super("Peasant Shirt",
                 1,
-                new ItemCondition(new Strength(), 1));
+                new ItemCondition(new Strength(), 1),
+                1);
     }
 }

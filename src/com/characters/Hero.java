@@ -9,6 +9,7 @@ import com.items.Item;
 import com.items.playable.ammunition.Ammunition;
 import com.items.playable.amulets.Amulet;
 import com.items.playable.armors.Armor;
+import com.items.playable.armors.PeasantShirt;
 import com.items.playable.consumables.Cheese;
 import com.items.playable.consumables.Consumable;
 import com.items.playable.shields.OldWoodenShield;
@@ -38,7 +39,10 @@ public class Hero extends Character {
         getItems().add(woodenShield);
         woodenShield.setEquipped(true);
         setEquippedShield(woodenShield);
-
+        PeasantShirt peasantShirt = new PeasantShirt();
+        getItems().add(peasantShirt);
+        peasantShirt.setEquipped(true);
+        setEquippedArmor(peasantShirt);
         Cheese cheese = new Cheese();
         getItems().add(cheese);
     }

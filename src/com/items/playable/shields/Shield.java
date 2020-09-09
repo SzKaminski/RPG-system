@@ -19,6 +19,14 @@ public class Shield extends Item {
         this.blockValue = blockValue;
     }
 
+    /**
+     * Method returns receive hit value which is decreased by shield's block value
+     *
+     * @param character
+     * @param hitReceived
+     * @return
+     */
+
     public int block(Character character, int hitReceived) {
         int receiveHit = character.receiveHit(hitReceived);
         if (receiveHit > 0) {
