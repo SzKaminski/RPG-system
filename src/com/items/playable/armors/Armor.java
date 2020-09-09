@@ -6,6 +6,9 @@ import com.items.ItemType;
 
 public class Armor extends Item {
 
+    private double blockChance;
+    private int blockValue;
+
     public Armor() {
     }
 

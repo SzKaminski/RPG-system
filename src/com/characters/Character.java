@@ -244,12 +244,14 @@ public abstract class Character {
     }
 
     public int getReceivedHit(int receiveHit) {
+        int actualHealthPointsValue = actualHealthPoints.getValue();
         if (getEquippedShield() != null) {
             int blocked = getEquippedShield().block(this, receiveHit);
-            int actualHealthPointsValue = actualHealthPoints.getValue();
+            System.out.println("Received hit! -" + blocked + " health points");
             return actualHealthPointsValue - blocked;
         }
-        return receiveHit;
+        System.out.println("Received hit! -" + receiveHit + " health points");
+        return actualHealthPointsValue - receiveHit;
     }
 
     public int receiveHit(int attackerValue) {

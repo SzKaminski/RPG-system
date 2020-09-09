@@ -26,7 +26,7 @@ public class Shield extends Item {
             int blockValue = this.getBlockValue();
             if (blockChance) {
                 receiveHit = receiveHit - blockValue;
-                Printer.println("Blocked with " + this.getName(), Printer.PrinterColor.COLOR_YELLOW);
+                Printer.println( this.getName() + " blocks " + blockValue + " damage points", Printer.PrinterColor.COLOR_YELLOW);
                 return receiveHit;
             }
         }

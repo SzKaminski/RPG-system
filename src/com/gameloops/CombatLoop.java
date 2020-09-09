@@ -138,7 +138,6 @@ public class CombatLoop implements Runnable {
             System.out.println(actualAttackerHP + "/" + attacker.getHealthPoints().getValue() + "          ||          " +
                     actualDefenderHP + "/" + defender.getHealthPoints().getValue());
             int attackerValue = attacker.getMeleeAttack().getValue();
-            System.out.println("Damages: " + attackerValue);
             int i = defender.receiveHit(attackerValue);
             actualDefenderHP = defender.getReceivedHit(i);
 
@@ -152,8 +151,10 @@ public class CombatLoop implements Runnable {
             System.out.println(actualAttackerHP + "/" + attacker.getHealthPoints().getValue() + "          ||          " +
                     actualDefenderHP + "/" + defender.getHealthPoints().getValue());
             int defenderValue = defender.getMeleeAttack().getValue();
-            System.out.println("Damages: " + defenderValue);
-            actualAttackerHP = actualAttackerHP - defenderValue;
+            /*System.out.println("Damages: " + defenderValue);
+            actualAttackerHP = actualAttackerHP - defenderValue;*/
+            int j = attacker.receiveHit(defenderValue);
+            actualAttackerHP = attacker.getReceivedHit(j);
 
             attacker.setActualHealthPoints(new HealthPoints(actualAttackerHP));
             if (actualAttackerHP <= 0)
