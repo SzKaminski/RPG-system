@@ -8,6 +8,7 @@ import com.classes.CharacterClass;
 import com.items.Item;
 import com.items.playable.ammunition.Ammunition;
 import com.items.playable.amulets.Amulet;
+import com.items.playable.amulets.HealthAmulet;
 import com.items.playable.armors.Armor;
 import com.items.playable.armors.PeasantShirt;
 import com.items.playable.consumables.Cheese;
@@ -39,10 +40,11 @@ public class Hero extends Character {
         getItems().add(woodenShield);
         woodenShield.setEquipped(true);
         setEquippedShield(woodenShield);
-        PeasantShirt peasantShirt = new PeasantShirt();
-        getItems().add(peasantShirt);
-        peasantShirt.setEquipped(true);
-        setEquippedArmor(peasantShirt);
+        HealthAmulet amulet = new HealthAmulet();
+        getItems().add(amulet);
+        amulet.setEquipped(true);
+        setEquippedAmulet(amulet);
+
         Cheese cheese = new Cheese();
         getItems().add(cheese);
     }
@@ -225,14 +227,12 @@ public class Hero extends Character {
                     if (this.getEquippedArmor() == null) {
                         this.setEquippedArmor((Armor) item);
                         //todo: won't work for villain equipment
-                        this.increaseDefense();
                         System.out.println(item.getName() + " equipped");
                     } else {
                         System.out.println("you cannot equip another armor");
                     }
                 } else {
                     this.unEquipArmor((Armor) item);
-                    this.increaseDefense();
                     System.out.println(item.getName() + " unequipped");
                 }
                 pause();
@@ -241,15 +241,15 @@ public class Hero extends Character {
                 if (!item.isEquipped()) {
                     if (this.getEquippedAmulet() == null) {
                         this.setEquippedAmulet((Amulet) item);
-                        //todo: won't work for villain equipment
-                       // this.increaseDefense();
+                        /*((Amulet) item).increaseAttribute(this);*/
+                        increaseAttribute();
                         System.out.println(item.getName() + " equipped");
                     } else {
                         System.out.println("you cannot equip another amulet");
                     }
                 } else {
                     this.unEquipAmulet((Amulet) item);
-                  //  this.increaseDefense();
+                    increaseAttribute();
                     System.out.println(item.getName() + " unequipped");
                 }
                 pause();
@@ -259,14 +259,12 @@ public class Hero extends Character {
                     if (this.getEquippedAmmunition() == null) {
                         this.setEquippedAmmunition((Ammunition) item);
                         //todo: won't work for villain equipment
-                        // this.increaseDefense();
                         System.out.println(item.getName() + " equipped");
                     } else {
                         System.out.println("you cannot equip another ammunition");
                     }
                 } else {
                     this.unEquipAmmunition((Ammunition) item);
-                    //  this.increaseDefense();
                     System.out.println(item.getName() + " unequipped");
                 }
                 pause();
@@ -276,7 +274,6 @@ public class Hero extends Character {
                     if (this.getEquippedShield() == null) {
                         this.setEquippedShield((Shield) item);
                         //todo: won't work for villain equipment
-                        // this.increaseDefense();
                         System.out.println(item.getName() + " equipped");
                     } else {
                         System.out.println("you cannot equip another shield");
@@ -309,25 +306,23 @@ public class Hero extends Character {
                 break;
             case ARMOR:
                 this.unEquipArmor((Armor) item);
-                this.increaseDefense();
                 this.getItems().remove(item);
                 System.out.println(item.getName() +" removed");
                 break;
             case AMULET:
                 this.unEquipAmulet((Amulet) item);
-               // this.increaseDefense();
+                /*((Amulet) item).increaseAttribute(this);*/
+                increaseAttribute();
                 this.getItems().remove(item);
                 System.out.println(item.getName() +" removed");
                 break;
             case AMMUNITION:
                 this.unEquipAmmunition((Ammunition) item);
-                // this.increaseDefense();
                 this.getItems().remove(item);
                 System.out.println(item.getName() +" removed");
                 break;
             case SHIELD:
                 this.unEquipShield((Shield) item);
-                // this.increaseDefense();
                 this.getItems().remove(item);
                 System.out.println(item.getName() +" removed");
                 break;

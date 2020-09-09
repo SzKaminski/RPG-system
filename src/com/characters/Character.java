@@ -65,6 +65,11 @@ public abstract class Character {
         this.healthPoints = healthPoints;
     }
 
+    public void addHealthPoints(int value){
+        int i = getHealthPoints().getValue() + value;
+        this.healthPoints.setValue(i);
+    }
+
     public void setBasicHealthPoints() {
         int i = ComputingAttribute.computeHealthPoints(endurance.getValue());
         setHealthPoints(new HealthPoints(i));
@@ -144,10 +149,15 @@ public abstract class Character {
         if (this.equippedWeapon != null)
             meleeAttack.setValue(this.getMeleeAttack().getValue() + this.getEquippedWeapon().getBaseAttack());
         else
-            // setMeleeAttack(this.getStrength());
             setBasicMeleeAttack();
     }
 
+    public void increaseAttribute() {
+        if (this.equippedAmulet != null)
+            this.addHealthPoints(equippedAmulet.getCharAttribute());
+        else
+            setBasicHealthPoints();
+    }
     public Dexterity getDexterity() {
         return dexterity;
     }
@@ -185,10 +195,6 @@ public abstract class Character {
 
     public Armor getEquippedArmor() {
         return equippedArmor;
-    }
-//todo: defense increaser
-
-    protected void increaseDefense() {
     }
 
     public void setEquippedArmor(Armor equippedArmor) {
@@ -243,40 +249,17 @@ public abstract class Character {
         this.equippedShield = null;
     }
 
-    public int sgetReceivedHit(int receiveHit) {
-        int actualHealthPointsValue = actualHealthPoints.getValue();
-        int finalReceived = receiveHit;
-        int blocked = 0;
-        int reduced = 0;
-        if (getEquippedShield() != null) {
-            blocked = getEquippedShield().block(this, receiveHit);
-            System.out.println("Received hit! -" + blocked + " health points");
-            //finalReceived = finalReceived - blocked;//finalReceived + (actualHealthPointsValue - blocked);
-        }
-        if (getEquippedArmor() != null) {
-            reduced = getEquippedArmor().reduceDamage(this, receiveHit);
-            System.out.println("Received hit! -" + reduced + " health points");
-            // finalReceived = finalReceived + (actualHealthPointsValue - reduced);
-        }
-        finalReceived = receiveHit - blocked - reduced;
-        System.out.println("Received hit! -" + receiveHit + " health points");
-        return finalReceived;
-    }
-
     public int getReceivedHit(int receiveHit) {
         receiveHit = reduceIfArmor(receiveHit);
         receiveHit = reduceIfShield(receiveHit);
 
         System.out.println("Received " + receiveHit + " damage points");
         return receiveHit;
-
     }
 
     private int reduceIfShield(int receiveHit) {
         if (getEquippedShield() != null) {
-            int blocked = getEquippedShield().block(this, receiveHit);
-
-            return blocked;
+            return getEquippedShield().block(this, receiveHit);
 
         }
         return receiveHit;
@@ -284,9 +267,7 @@ public abstract class Character {
 
     private int reduceIfArmor(int receiveHit) {
         if (getEquippedArmor() != null) {
-            int reduced = getEquippedArmor().reduceDamage(this, receiveHit);
-
-            return reduced;
+            return getEquippedArmor().reduceDamage(this, receiveHit);
         }
         return receiveHit;
     }
