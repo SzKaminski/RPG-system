@@ -10,7 +10,11 @@ public class Equipment<Item> extends ArrayList<Item> {
     }
 
     public boolean add(Item item, Character character) {
-        int eqSize = character.getStrength().getValue() / 2;
+        int eqSize;
+        if (character.getStrength() != null) {
+            eqSize = character.getStrength().getValue() / 2;
+        } else
+            eqSize = 3;
         if (this.size() < eqSize) {
             return super.add(item);
         }

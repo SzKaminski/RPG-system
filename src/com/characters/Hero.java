@@ -30,23 +30,16 @@ public class Hero extends Character {
     private String name;
     private CharacterClass characterClass;
     private int experiencePoints;
-    private int newLevelPoints = 50;
+    private int newLevelPoints = 150;
     private int increasePoints = 3;
     private Scanner sc;
 
     public Hero() {
         //todo: added eq on start may not increase combat stats
-        /*Shield woodenShield = new OldWoodenShield();
-        getItems().add(woodenShield,this);
-        woodenShield.setEquipped(true);
-        setEquippedShield(woodenShield);
-        HealthAmulet amulet = new HealthAmulet();
-        getItems().add(amulet,this);
-        amulet.setEquipped(true);
-        setEquippedAmulet(amulet);
 
-        Cheese cheese = new Cheese();
-        getItems().add(cheese,this);*/
+        getItems().add(new Cheese(), this);
+        getItems().add(new Cheese(), this);
+        getItems().add(new Cheese(), this);
     }
 
     public void checkIfNewLevel() {
@@ -161,22 +154,26 @@ public class Hero extends Character {
         this.setBasicDodge();
     }
 
-    public void manageEquipment() {
+    public void manageInventory() {
 
         if (!getItems().isEmpty()) {
             Printer.println("Equipment: ", Printer.PrinterColor.COLOR_GREEN);
             for (int i = 0; i < getItems().size(); i++) {
                 if (getItems().get(i).isEquipped()) {
-                    Printer.println(i + ")- " + getItems().get(i).getName() + "(equipped) ", Printer.PrinterColor.COLOR_GREEN);
+                    Printer.println(i + 1 + ")- " + getItems().get(i).getName() + "(equipped) ", Printer.PrinterColor.COLOR_GREEN);
                 } else
-                    System.out.println(i + ")- " + getItems().get(i).getName() + " | value: " + getItems().get(i).getValue());
+                    System.out.println(i + 1 + ")- " + getItems().get(i).getName() + " | value: " + getItems().get(i).getValue());
             }
+            Printer.println("Type 'e' + item number to equip/unequip item or 'r' + item number to remove", Printer.PrinterColor.COLOR_PURPLE);
         } else {
-            System.out.println("Equipment is empty!");
-            return;
+            System.out.println("Inventory is empty!");
         }
 
-        System.out.println("Type 'e' + item number to equip/unequip item or 'r' + item number to remove");
+        System.out.println("Gold coins: " + this.getGold()
+                + " HP: " + this.getActualHealthPoints().getValue() + "/" + this.getHealthPoints().getValue()
+                + " MP: " + this.getManaPoints().getValue() + "/" + this.getManaPoints().getValue());
+        System.out.println("Exp: " + this.getExperiencePoints() + "/" + this.getNewLevelPoints()
+                + " Level: " + this.getLevel() + " Class: " + this.getCharacterClass().getName());
 
         Scanner eqScanner = new Scanner(System.in);
         String manageItem = eqScanner.nextLine();
@@ -187,9 +184,9 @@ public class Hero extends Character {
         while (m.find()) {
             itemNumber = Integer.parseInt(m.group());
         }
-        try {
 
-            Item item = getItems().get(itemNumber);
+        try {
+            Item item = getItems().get(itemNumber - 1);
 
             if (manageItem.equals("e" + itemNumber)) {
                 equipItemByType(item);
@@ -198,7 +195,8 @@ public class Hero extends Character {
             }
 
         } catch (IndexOutOfBoundsException e) {
-            Printer.println("Try something else", Printer.PrinterColor.COLOR_RED);
+            //Printer.println("Try something else", Printer.PrinterColor.COLOR_RED);
+            return;
         }
     }
 
@@ -302,33 +300,33 @@ public class Hero extends Character {
                 this.unEquipWeapon((Weapon) item);
                 this.increaseAttack();
                 this.getItems().remove(item);
-                System.out.println(item.getName() +" removed");
+                System.out.println(item.getName() + " removed");
                 break;
             case ARMOR:
                 this.unEquipArmor((Armor) item);
                 this.getItems().remove(item);
-                System.out.println(item.getName() +" removed");
+                System.out.println(item.getName() + " removed");
                 break;
             case AMULET:
                 this.unEquipAmulet((Amulet) item);
                 /*((Amulet) item).increaseAttribute(this);*/
                 increaseAttribute();
                 this.getItems().remove(item);
-                System.out.println(item.getName() +" removed");
+                System.out.println(item.getName() + " removed");
                 break;
             case AMMUNITION:
                 this.unEquipAmmunition((Ammunition) item);
                 this.getItems().remove(item);
-                System.out.println(item.getName() +" removed");
+                System.out.println(item.getName() + " removed");
                 break;
             case SHIELD:
                 this.unEquipShield((Shield) item);
                 this.getItems().remove(item);
-                System.out.println(item.getName() +" removed");
+                System.out.println(item.getName() + " removed");
                 break;
             case CONSUMABLE:
                 this.getItems().remove(item);
-                System.out.println(item.getName() +" removed");
+                System.out.println(item.getName() + " removed");
                 break;
             default:
                 break;

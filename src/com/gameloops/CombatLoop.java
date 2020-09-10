@@ -38,6 +38,9 @@ public class CombatLoop implements Runnable {
                 victoryTemplate();
                 items = new ItemsContainer();
                 Item randomItem = items.getRandomItem();
+                int randomGold = getVillainPower(villain) / 10 + items.getRandomNumber();
+                hero.addGold(randomGold);
+                System.out.println(randomGold + " gold coins found");
 
                 boolean add = hero.getItems().add(randomItem, hero);
                 if (add)

@@ -57,7 +57,7 @@ public class MainLoop implements Runnable {
         int i = 0;
         System.out.println(i + 1 + ") Fight!");
         System.out.println(i + 2 + ") Try to avoid");
-        System.out.println("... or open equipment");
+        System.out.println(i + 3 + ") Open equipment");
         String getPick = sc.nextLine();
 
         switch (getPick) {
@@ -69,8 +69,12 @@ public class MainLoop implements Runnable {
             case "2":
                 combatMeet();
                 break;
+            case "3":
+                hero.manageInventory();
+                chooseAction();
+                break;
             default:
-                hero.manageEquipment();
+                println("Type number to choose an option", PrinterColor.COLOR_RED);
                 chooseAction();
                 break;
         }
@@ -93,7 +97,7 @@ public class MainLoop implements Runnable {
     private CharacterClass chooseCharacterClass() {
         System.out.println("Choose a character's class");
         for (int i = 0; i < characterClasses.size(); i++) {
-            System.out.println(i + ") " + characterClasses.get(i).getName());
+            System.out.println(i + 1 + ") " + characterClasses.get(i).getName());
         }
         String playerInput = sc.nextLine();
 
@@ -104,7 +108,7 @@ public class MainLoop implements Runnable {
         if (className.matches("-?\\d+")) {
             for (int i = 0; i < characterClasses.size(); i++) {
                 if (i == Integer.parseInt(className)) {
-                    return characterClasses.get(i);
+                    return characterClasses.get(i - 1);
                 }
             }
         } else {

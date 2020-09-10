@@ -15,6 +15,7 @@ public abstract class Character {
 
     private CharAttribute charAttribute;
 
+    private int gold;
     private Strength strength;
     private Dexterity dexterity;
     private Endurance endurance;
@@ -274,5 +275,17 @@ public abstract class Character {
 
     public int receiveHit(int attackerValue) {
         return attackerValue;
+    }
+
+    public int getGold() {
+        return gold;
+    }
+
+    public void setGold(int gold) {
+        this.gold = gold;
+    }
+
+    public void addGold(int gold) {
+        this.gold = this.gold + gold;
     }
 }

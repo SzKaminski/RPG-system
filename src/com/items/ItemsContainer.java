@@ -41,4 +41,8 @@ public class ItemsContainer {
         else
             return null;
     }
+
+    public int getRandomNumber(){
+        return r.nextInt(20);
+    }
 }
