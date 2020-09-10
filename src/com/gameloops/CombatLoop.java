@@ -50,7 +50,7 @@ public class CombatLoop implements Runnable {
 
                 MainLoop mainLoop = new MainLoop();
                 mainLoop.setHero(hero);
-                mainLoop.combatMeet();
+                mainLoop.heroLocation();
 
             } else
                 println(hero.getName() + " loses", Printer.PrinterColor.COLOR_RED);

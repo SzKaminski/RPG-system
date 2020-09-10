@@ -8,6 +8,7 @@ import com.items.playable.amulets.Amulet;
 import com.items.playable.armors.Armor;
 import com.items.playable.shields.Shield;
 import com.items.playable.weapons.Weapon;
+import com.places.Place;
 
 public abstract class Character {
 
@@ -16,6 +17,8 @@ public abstract class Character {
     private CharAttribute charAttribute;
 
     private int gold;
+    private Place location;
+
     private Strength strength;
     private Dexterity dexterity;
     private Endurance endurance;
@@ -287,5 +290,13 @@ public abstract class Character {
 
     public void addGold(int gold) {
         this.gold = this.gold + gold;
+    }
+
+    public Place getLocation() {
+        return location;
+    }
+
+    public void setLocation(Place location) {
+        this.location = location;
     }
 }

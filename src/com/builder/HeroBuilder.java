@@ -2,6 +2,7 @@ package com.builder;
 
 import com.characters.Hero;
 import com.classes.CharacterClass;
+import com.places.Place;
 
 public class HeroBuilder {
 
@@ -18,6 +19,11 @@ public class HeroBuilder {
 
     public HeroBuilder withCharacterClass(CharacterClass characterClass){
         hero.setCharacterClass(characterClass);
+        return this;
+    }
+
+    public HeroBuilder withLocation(Place location){
+        hero.setLocation(location);
         return this;
     }
 

@@ -1,28 +1,32 @@
 package com.gameloops;
 
 import com.builder.HeroBuilder;
-import com.builder.RandomVillainBuilder;
 import com.characters.Hero;
-import com.characters.Villain;
-import com.classes.*;
+import com.classes.CharacterClass;
+import com.classes.ClassesContainer;
+import com.places.MarketPlace;
 
-import java.util.*;
+import java.util.List;
+import java.util.Scanner;
 
 import static com.visualeffects.PauseEffect.pause;
-import static com.visualeffects.Printer.*;
+import static com.visualeffects.Printer.PrinterColor;
+import static com.visualeffects.Printer.println;
 
 public class MainLoop implements Runnable {
 
     private Scanner sc;
     private boolean isRunning;
     private Hero hero;
-    private Villain randomVillain;
+
     private List<CharacterClass> characterClasses;
-    private CombatLoop combatLoop;
+
+    private MarketPlace marketPlace;
 
     public MainLoop() {
         sc = new Scanner(System.in);
         characterClasses = new ClassesContainer().getCharacterClassList();
+        marketPlace = new MarketPlace();
     }
 
     @Override
@@ -31,54 +35,15 @@ public class MainLoop implements Runnable {
         while (isRunning) {
             createProtagonist();
             pause();
-            combatMeet();
+            heroLocation();
             stop();
         }
     }
 
-    public void combatMeet() {
-        System.out.println();
-        println(hero.getName() + " the " + hero.getCharacterClass().getName() + " meets an opponent", PrinterColor.COLOR_YELLOW);
-        pause();
-        randomVillain = new RandomVillainBuilder().withName()
-                .withCharacterClass()
-                .withRandomLvl()
-                .build();
-
-        chooseAction();
-    }
-
-    private void chooseAction() {
-        System.out.println(randomVillain.getName() +
-                " " + randomVillain.getCharacterClass().getName() +
-                " " + randomVillain.getLevel());
-
-        System.out.println("Choose an action");
-        int i = 0;
-        System.out.println(i + 1 + ") Fight!");
-        System.out.println(i + 2 + ") Try to avoid");
-        System.out.println(i + 3 + ") Open equipment");
-        String getPick = sc.nextLine();
-
-        switch (getPick) {
-            case "1":
-                combatLoop = new CombatLoop(hero, randomVillain);
-                stop();
-                combatLoop.run();
-                break;
-            case "2":
-                combatMeet();
-                break;
-            case "3":
-                hero.manageInventory();
-                chooseAction();
-                break;
-            default:
-                println("Type number to choose an option", PrinterColor.COLOR_RED);
-                chooseAction();
-                break;
-        }
-
+    public void heroLocation() {
+        println(hero.getLocation().getName() + "| the sun is at its zenith |" + " K 2, 2231", PrinterColor.COLOR_BLUE);
+        println(hero.getLocation().getDescription(), PrinterColor.COLOR_GREEN);
+        hero.getLocation().enter(hero);
     }
 
     private void createProtagonist() {
@@ -91,6 +56,7 @@ public class MainLoop implements Runnable {
         hero = new HeroBuilder()
                 .withName(characterName)
                 .withCharacterClass(characterClass)
+                .withLocation(new MarketPlace())
                 .build();
     }
 
