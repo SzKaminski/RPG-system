@@ -107,7 +107,7 @@ public abstract class Place {
             case "e":
                 if (eastPlace != null) {
                     hero.setLocation(eastPlace);
-                    println(hero.getName() + " enters " + northPlace.getName(), Printer.PrinterColor.COLOR_RED);
+                    println(hero.getName() + " enters " + eastPlace.getName(), Printer.PrinterColor.COLOR_RED);
                     eastPlace.enter(hero);
                 } else
                     System.out.println("There is no way to get there");
@@ -116,7 +116,7 @@ public abstract class Place {
             case "s":
                 if (southPlace != null) {
                     hero.setLocation(southPlace);
-                    println(hero.getName() + " enters " + northPlace.getName(), Printer.PrinterColor.COLOR_RED);
+                    println(hero.getName() + " enters " + southPlace.getName(), Printer.PrinterColor.COLOR_RED);
                     southPlace.enter(hero);
                 } else
                     System.out.println("There is no way to get there");
@@ -125,7 +125,7 @@ public abstract class Place {
             case "w":
                 if (westPlace != null) {
                     hero.setLocation(westPlace);
-                    println(hero.getName() + " enters " + northPlace.getName(), Printer.PrinterColor.COLOR_RED);
+                    println(hero.getName() + " enters " + westPlace.getName(), Printer.PrinterColor.COLOR_RED);
                     westPlace.enter(hero);
                 } else
                     System.out.println("There is no way to get there");

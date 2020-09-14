@@ -46,7 +46,7 @@ public class MarketPlace extends Place {
         if (this.isDigit(getPick))
             switch (getPick) {
                 case "1":
-                    getTargets().get(0).getConversation();
+                    getTargets().get(0).getConversation(hero);
                     pause();
                     enter(hero);
                     break;

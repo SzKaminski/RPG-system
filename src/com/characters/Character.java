@@ -321,5 +321,5 @@ public abstract class Character {
         this.description = description;
     }
 
-    public void getConversation(){};
+    public void getConversation(Hero hero){}
 }
