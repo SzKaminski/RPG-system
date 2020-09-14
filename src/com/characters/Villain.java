@@ -6,19 +6,11 @@ public class Villain extends Character {
 
     //todo: depends on vil's lvl one should have an alias instead of a number as a level next to name when the combat starts
 
-    private String name;
     private CharacterClass characterClass;
 
     public Villain() {
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public CharacterClass getCharacterClass() {
         return characterClass;

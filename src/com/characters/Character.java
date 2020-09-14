@@ -15,6 +15,7 @@ public abstract class Character {
     private int level = 1;
 
     private CharAttribute charAttribute;
+    private String name;
 
     private int gold;
     private Place location;
@@ -38,6 +39,8 @@ public abstract class Character {
 
     private Equipment<Item> items;
 
+    private String description;
+
     public Equipment<Item> getItems() {
         return items;
     }
@@ -54,6 +57,7 @@ public abstract class Character {
         this.dexterity = dexterity;
         this.endurance = endurance;
         this.intelligence = intelligence;
+        items = new Equipment<>();
     }
 
     public CharAttribute getAttribute() {
@@ -299,4 +303,23 @@ public abstract class Character {
     public void setLocation(Place location) {
         this.location = location;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void getConversation(){};
 }

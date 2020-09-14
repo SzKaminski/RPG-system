@@ -41,8 +41,7 @@ public class MainLoop implements Runnable {
     }
 
     public void heroLocation() {
-        println(hero.getLocation().getName() + "| the sun is at its zenith |" + " K 2, 2231", PrinterColor.COLOR_BLUE);
-        println(hero.getLocation().getDescription(), PrinterColor.COLOR_GREEN);
+
         hero.getLocation().enter(hero);
     }
 

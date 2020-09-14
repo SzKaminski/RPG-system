@@ -8,14 +8,10 @@ import com.classes.CharacterClass;
 import com.items.Item;
 import com.items.playable.ammunition.Ammunition;
 import com.items.playable.amulets.Amulet;
-import com.items.playable.amulets.HealthAmulet;
 import com.items.playable.armors.Armor;
-import com.items.playable.armors.PeasantShirt;
 import com.items.playable.consumables.Cheese;
 import com.items.playable.consumables.Consumable;
-import com.items.playable.shields.OldWoodenShield;
 import com.items.playable.shields.Shield;
-import com.items.playable.weapons.Branch;
 import com.items.playable.weapons.Weapon;
 import com.visualeffects.Printer;
 
@@ -27,7 +23,6 @@ import static com.visualeffects.PauseEffect.pause;
 
 public class Hero extends Character {
 
-    private String name;
     private CharacterClass characterClass;
     private int experiencePoints;
     private int newLevelPoints = 150;
@@ -111,13 +106,6 @@ public class Hero extends Character {
         this.newLevelPoints = newLevelPoints;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public CharacterClass getCharacterClass() {
         return characterClass;
