@@ -1,8 +1,10 @@
 package com.places;
 
 import com.builder.RandomVillainBuilder;
+import com.characters.Character;
 import com.characters.Hero;
 import com.characters.Villain;
+import com.characters.npcs.Merchant;
 import com.gameloops.CombatLoop;
 import com.visualeffects.Printer;
 
@@ -27,7 +29,18 @@ public class NarrowStreets extends Place {
     public NarrowStreets() {
         super("Narrow Streets");
         setDescription(DESCRIPTION);
+        randomVillain = new RandomVillainBuilder().withName()
+                .withCharacterClass()
+                .withRandomLvl()
+                .build();
+    }
 
+    @Override
+    public List<Character> getTargets() {
+        List targets = new ArrayList<>();
+
+        targets.add(randomVillain);
+        return targets;
     }
 
     @Override
@@ -40,12 +53,6 @@ public class NarrowStreets extends Place {
     @Override
     public void enter(Hero hero) {
         super.enter(hero);
-        Map<String, Place> directions = hero.getLocation().getDirections();
-
-        for (Map.Entry<String, Place> entry : directions.entrySet()) {
-            System.out.print(entry.getKey() + " : " + entry.getValue().getName() + " | ");
-        }
-        System.out.println("\nI : open inventory");
         String getPick = getSc().nextLine().toLowerCase();
 
         if (isDigit(getPick))
@@ -57,9 +64,12 @@ public class NarrowStreets extends Place {
                     pause();
                     enter(hero);
                     break;
+                default:
+                    enter(hero);
+                    break;
             }
         else
-            setLocationDirections(hero, getPick);
+            setLocationDirections(hero, getPick, null, null, new MarketPlace(), null);
 
     }
 
@@ -67,18 +77,15 @@ public class NarrowStreets extends Place {
         System.out.println();
         println(hero.getName() + " the " + hero.getCharacterClass().getName() + " meets an opponent", Printer.PrinterColor.COLOR_YELLOW);
         pause();
-        randomVillain = new RandomVillainBuilder().withName()
-                .withCharacterClass()
-                .withRandomLvl()
-                .build();
 
         chooseAction(hero);
     }
 
     private void chooseAction(Hero hero) {
-        System.out.println(randomVillain.getName() +
-                " " + randomVillain.getCharacterClass().getName() +
-                " " + randomVillain.getLevel());
+        Villain villain = (Villain) getTargets().get(0);
+        System.out.println(villain.getName() +
+                " " + villain.getCharacterClass().getName() +
+                " " + villain.getLevel());
 
         System.out.println("Choose an action");
         int i = 0;
@@ -89,7 +96,7 @@ public class NarrowStreets extends Place {
 
         switch (getPick) {
             case "1":
-                combatLoop = new CombatLoop(hero, randomVillain);
+                combatLoop = new CombatLoop(hero, villain);
                 combatLoop.run();
                 break;
             case "2":
@@ -102,31 +109,6 @@ public class NarrowStreets extends Place {
             default:
                 println("Type number to choose an option", Printer.PrinterColor.COLOR_RED);
                 chooseAction(hero);
-                break;
-        }
-
-    }
-
-    private void setLocationDirections(Hero hero, String getPick) {
-        switch (getPick) {
-            case "n":
-
-                break;
-            case "e":
-                break;
-            case "s":
-                MarketPlace marketPlace = new MarketPlace();
-                hero.setLocation(marketPlace);
-                marketPlace.enter(hero);
-                break;
-            case "w":
-                break;
-            case "i":
-                hero.manageInventory();
-                enter(hero);
-                break;
-            default:
-                System.out.println("Wrong direction");
                 break;
         }
     }
