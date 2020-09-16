@@ -1,20 +1,20 @@
-package com.places;
+package com.places.Village;
 
 import com.builder.RandomVillainBuilder;
 import com.characters.Character;
 import com.characters.Hero;
 import com.characters.Villain;
-import com.characters.npcs.Merchant;
 import com.gameloops.CombatLoop;
-import com.visualeffects.Printer;
+import com.places.Place;
+import com.visuals.Printer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.visualeffects.PauseEffect.pause;
-import static com.visualeffects.Printer.println;
+import static com.visuals.PauseEffect.pause;
+import static com.visuals.Printer.println;
 
 public class NarrowStreets extends Place {
 

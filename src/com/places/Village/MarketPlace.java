@@ -1,16 +1,18 @@
-package com.places;
+package com.places.Village;
 
 
 import com.characters.Character;
 import com.characters.Hero;
 import com.characters.npcs.Merchant;
+import com.places.World.OuterFields;
+import com.places.Place;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.visualeffects.PauseEffect.pause;
+import static com.visuals.PauseEffect.pause;
 
 public class MarketPlace extends Place {
 

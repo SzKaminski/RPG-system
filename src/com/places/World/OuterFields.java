@@ -1,13 +1,13 @@
-package com.places;
+package com.places.World;
 
 import com.characters.Hero;
-import com.visualeffects.Printer;
+import com.places.Place;
+import com.places.Village.MarketPlace;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.visualeffects.PauseEffect.pause;
-import static com.visualeffects.Printer.println;
+import static com.visuals.PauseEffect.pause;
 
 public class OuterFields extends Place {
 

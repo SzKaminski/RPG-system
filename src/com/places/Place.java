@@ -2,13 +2,13 @@ package com.places;
 
 import com.characters.Character;
 import com.characters.Hero;
-import com.visualeffects.Printer;
+import com.visuals.Printer;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-import static com.visualeffects.Printer.println;
+import static com.visuals.Printer.println;
 
 public abstract class Place {
 
@@ -80,11 +80,11 @@ public abstract class Place {
         }
     }
 
-    Scanner getSc() {
+    public Scanner getSc() {
         return sc;
     }
 
-    boolean isDigit(String dig) {
+    public boolean isDigit(String dig) {
         try {
             Integer.parseInt(dig);
             return true;
